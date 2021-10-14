@@ -1,32 +1,137 @@
+//. GENERAL IMPORTS
+const https = require("https");
 const express = require("express");
 const cors = require("cors");
-const app = express();
-// const bodyParser = require("body-parser");
+const { RequestHeaderFieldsTooLarge } = require("http-errors");
+const bodyParser = require("body-parser");
 
+// AUTH IMPORTS
+const passport = require("passport");
+const bcrypt = require("bcrypt");
+const hashPassword = require("./util/hashPassword");
+const cookieSession = require("cookie-session");
+require("./util/passport-setup");
+// const auth = require("./auth.js");
+
+// DATABASE IMPORTS
+const mongoose = require("mongoose");
+const validator = require("validator");
+const Task = require("./models/Task");
+const Image = require("./models/Image");
+const Expert = require("./models/Expert");
+const User = require("./models/User");
+
+// GENERAL INSTANTIATION
+const app = express();
 app.use(express.urlencoded({ limit: "25mb", extended: true }));
 // // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json({ limit: "25mb" }));
 app.use(express.static("public"));
 
-const hashPassword = require("./util/hashPassword");
-const bcrypt = require("bcrypt");
+//AUTH INSTANTIATION
+app.use(bodyParser.urlencoded({ extended: false }));
 
-// todo - access logged in expert id from context
-const EXPERT_ID = "613a0e800cb73968bd650054";
+app.use(cookieSession({ name: "session", keys: ["key1", "key2"] }));
+app.use(passport.initialize());
+app.use(passport.session());
 
-const mongoose = require("mongoose");
-const Task = require("./models/Task");
-const Image = require("./models/Image");
-const Expert = require("./models/Expert");
-
+// CONSTANT INSTANTIATION
 const localDB = "mongodb://localhost:27017/iServiceDB";
 const remoteDB =
   "mongodb+srv://admin-roger:password2020@cluster0.knut4.mongodb.net/uninewsletterDB?retryWrites=true&w=majority";
 
+// todo - access logged in expert id from context
+const EXPERT_ID = "613a0e800cb73968bd650054";
+
+// DATABASE CONNEECTION
 mongoose.connect(localDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+});
+
+// AUTH ROUTES
+
+app.post("/signup", async (req, res) => {
+  const user = new User();
+  user.country = req.body.country;
+  user.firstName = req.body.firstName;
+  user.lastName = req.body.lastName;
+  user.email = req.body.email;
+  user.password = req.body.password;
+  // customer.confirmPassword = req.body.confirmPassword;
+  user.addressFirst = req.body.addressFirst;
+  user.addressSecond = req.body.addressSecond;
+  user.city = req.body.city;
+  user.region = req.body.region;
+  user.postcode = req.body.postCode;
+  user.phone = req.body.phone;
+
+  console.log(user);
+
+  let error = user.validateSync();
+  console.log(error);
+  let errorMessages = [];
+  if (error) {
+    for (const k in error.errors) {
+      // Take only the error messages
+      errorMessages.push(error.errors[k].message);
+    }
+  }
+  // Schema validation can't compare two fields, so compare manually here
+  // if (req.body.password !== req.body.confirmPassword) {
+  //   errorMessages.push("Password and password confirm must match.");
+  // }
+
+  // If backend validation finds error, send error message
+  if (errorMessages.length) {
+    res.status(500).send(errorMessages);
+    // If no validation error, add object to database
+  } else {
+    user.password = await hashPassword(user.password);
+    // user.confirmPassword = "null";
+    // const Customer = mongoose.model("Customer", customerSchema);
+    User.insertMany([user], (err) => {
+      if (err) {
+        res.send(err);
+      } else {
+        // Mailchimp sign up
+        mailChimpAdd(user.email, user.firstName, user.lastName);
+        // Redirect to signin page
+        res.send("/signin");
+      }
+    });
+  }
+});
+
+app.post("/signin", async (req, res) => {
+  const user = await User.findOne({ email: req.body.email }).exec();
+  bcrypt.compare(req.body.password, user.password, (err, result) => {
+    if (err) {
+      res.status(500).send(err.message, "\nTry again later.");
+    } else if (result === true) {
+      // Manually sign in and obtain cookie using passport
+      req.login(user, function (err) {
+        if (err) {
+          res.status(500).send("Error getting user");
+        }
+        if (req.body.remember === "on") {
+          // If user has selexted "remember me", store cookie for 2 weeks
+          req.sessionOptions.maxAge = 60 * 60 * 24 * 14;
+        }
+        res.send("/");
+      });
+    } else {
+      res.status(401).send("Invalid credentials");
+    }
+  });
+});
+
+app.get("/signout", (req, res) => {
+  req.session = null;
+  req.logout();
+  res.status(200).send("/signin");
+  // res.redirect("/signin");
 });
 
 app.post("/task", (req, res) => {
@@ -53,6 +158,7 @@ app.post("/upload", (req, res) => {
 });
 
 app.get("/task", (req, res) => {
+  console.log(req.query);
   // Combine query parameters from request
   let findParams = {};
   if (req.query.keywords) {

@@ -1,7 +1,7 @@
 import { TextArea } from 'semantic-ui-react';
 
 const TextInput = (props) => {
-  // todo multi rows
+  // todo - use input component if !rows or rows === 1
   return (
     <div className="px-3 mb-3 d-flex justify-content-left">
       <div className="col-2">{props.label}</div>

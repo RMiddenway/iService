@@ -7,13 +7,13 @@ const localDB = "mongodb://localhost:27017/iServiceDB";
 const remoteDB =
   "mongodb+srv://admin-roger:password2020@cluster0.knut4.mongodb.net/uninewsletterDB?retryWrites=true&w=majority";
 // todo - change when switching between local and heroku
-mongoose.connect(remoteDB, {
+mongoose.connect(localDB, {
   useNewUrlParser: true,
 });
 
 // todo - change when switching between local and heroku
-const DOMAIN = "https://iservice62d.herokuapp.com";
-// const DOMAIN = "http://localhost:8000";
+// const DOMAIN = "https://iservice62d.herokuapp.com";
+const DOMAIN = "http://localhost:5100";
 passport.serializeUser(function (user, done) {
   console.log("serialize", user);
   done(null, user);
