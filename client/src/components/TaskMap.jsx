@@ -1,20 +1,25 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { setLastLocation } from '../location/locationSlice';
 import MapContainer from './MapContainer';
 
 const TaskMap = () => {
-  const [currentLocation, setCurrentLocation] = useState({ lat: 0, lng: 0 });
+  const lastLocation = useSelector((state) => state.location.lastLocation);
+  const dispatch = useDispatch();
+  // const [currentLocation, setCurrentLocation] = useState({ lastLocation });
   navigator?.geolocation.getCurrentPosition(
     ({ coords: { latitude: lat, longitude: lng } }) => {
       const pos = { lat, lng };
-      setCurrentLocation(pos);
+      dispatch(setLastLocation(pos));
+      // setCurrentLocation(pos);
     }
   );
+  console.log(lastLocation);
   return (
     <>
       <div>
-        <MapContainer currentLocation={currentLocation} zoom={4}></MapContainer>
-        ;
+        <MapContainer currentLocation={lastLocation} zoom={4}></MapContainer>;
       </div>
     </>
   );

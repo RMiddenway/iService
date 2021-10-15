@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import { Button, Form, Image, Input, Modal } from "semantic-ui-react";
+import { useEffect, useState } from 'react';
+import { Button, Form, Grid, Image, Input, Modal } from 'semantic-ui-react';
 
-import CardContainer from "../components/CardContainer";
+import CardContainer from '../components/CardContainer';
+import TaskMap from '../components/TaskMap';
 
 const FindTask = () => {
   const [tasks, setTasks] = useState([]);
@@ -90,52 +91,66 @@ const FindTask = () => {
           Filter
         </Button>
       </Form>
-      <CardContainer
-        cardType="task"
-        cards={tasks}
-        handleHideTask={handleHideTask}
-        handleClick={handleClick}
-      ></CardContainer>
-      <Modal
-        closeIcon
-        onClose={() => setModalOpen(false)}
-        size="small"
-        open={modalOpen}
-        style={{ height: "auto", position: "static" }}
-      >
-        <Modal.Header className="d-flex justify-content-between">
-          <h1>{activeTask?.taskTitle}</h1>
-        </Modal.Header>
-        <Modal.Content>
-          <div className="d-flex justify-content-between">
-            <div>{activeTask?.taskType}</div>
-            <div>{activeTask?.suburb}</div>
-            <div>
-              ${activeTask?.budgetValue}
-              {activeTask?.budgetType === "Hourly rate" ? "/hr" : " total"}
-            </div>
+      <div className="container m-2">
+        <div className="row">
+          <div className="col">
+            <CardContainer
+              cardType="task"
+              cards={tasks}
+              handleHideTask={handleHideTask}
+              handleClick={handleClick}
+            ></CardContainer>
+            <Modal
+              closeIcon
+              onClose={() => setModalOpen(false)}
+              size="small"
+              open={modalOpen}
+              style={{ height: "auto", position: "static" }}
+            >
+              <Modal.Header className="d-flex justify-content-between">
+                <h1>{activeTask?.taskTitle}</h1>
+              </Modal.Header>
+              <Modal.Content>
+                <div className="d-flex justify-content-between">
+                  <div>{activeTask?.taskType}</div>
+                  <div>{activeTask?.suburb}</div>
+                  <div>
+                    ${activeTask?.budgetValue}
+                    {activeTask?.budgetType === "Hourly rate"
+                      ? "/hr"
+                      : " total"}
+                  </div>
+                </div>
+              </Modal.Content>
+              <Modal.Content image className="container">
+                <Modal.Description className="col-6">
+                  <p>{activeTask?.taskDescription}</p>
+                </Modal.Description>
+                <Image
+                  size="medium"
+                  src={activeTask?.taskImage}
+                  wrapped
+                  className="col-6"
+                />
+              </Modal.Content>
+              <Modal.Actions className="mb-2">
+                <div className="d-flex justify-content-between">
+                  <Button
+                    color="red"
+                    onClick={(e) => handleHideTask(activeTask._id)}
+                  >
+                    Hide Task
+                  </Button>
+                  <Button color="green">Accept Task</Button>
+                </div>
+              </Modal.Actions>
+            </Modal>
           </div>
-        </Modal.Content>
-        <Modal.Content image className="container">
-          <Modal.Description className="col-6">
-            <p>{activeTask?.taskDescription}</p>
-          </Modal.Description>
-          <Image
-            size="medium"
-            src={activeTask?.taskImage}
-            wrapped
-            className="col-6"
-          />
-        </Modal.Content>
-        <Modal.Actions className="mb-2">
-          <div className="d-flex justify-content-between">
-            <Button color="red" onClick={(e) => handleHideTask(activeTask._id)}>
-              Hide Task
-            </Button>
-            <Button color="green">Accept Task</Button>
+          <div className="col">
+            <TaskMap />
           </div>
-        </Modal.Actions>
-      </Modal>
+        </div>
+      </div>
     </>
   );
 };
