@@ -1,8 +1,12 @@
-import { useState } from "react";
-import { useToasts } from "react-toast-notifications";
-import { useHistory } from "react-router-dom";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
+
+import { setSignedIn, setUserType } from '../auth/authSlice';
 
 const SignIn = () => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState({ email: "", password: "" });
   const { addToast } = useToasts();
   const history = useHistory();
@@ -31,7 +35,8 @@ const SignIn = () => {
           appearance: "success",
           autoDismiss: true,
         });
-        localStorage.setItem("IS_SIGNED_IN", "true");
+        // localStorage.setItem("IS_SIGNED_IN", "true");
+        dispatch(setSignedIn());
         history.push(data);
       })
       .catch((err) => {

@@ -1,15 +1,20 @@
-import React, { useState } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
-import { Icon, Menu } from "semantic-ui-react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useRouteMatch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { Icon, Menu } from 'semantic-ui-react';
+
+import { setSignedOut } from '../auth/authSlice';
 
 const NavBar = () => {
+  const isSignedIn = useSelector((state) => state.auth.isSignedIn);
+  const dispatch = useDispatch();
   const history = useHistory();
   const [activeItem, setActiveItem] = useState("home");
 
-  const isSignedIn = () => {
-    return localStorage.getItem("IS_SIGNED_IN") === "true";
-  };
+  // const isSignedIn = () => {
+  //   return localStorage.getItem("IS_SIGNED_IN") === "true";
+  // };
 
   const handleItemClick = (e) => {
     console.log(e.target.id);
@@ -22,7 +27,8 @@ const NavBar = () => {
     })
       .then((response) => {
         if (response.status === 200) {
-          localStorage.setItem("IS_SIGNED_IN", "false");
+          // localStorage.setItem("IS_SIGNED_IN", "false");
+          dispatch(setSignedOut());
         }
         return response.text();
       })
@@ -82,7 +88,7 @@ const NavBar = () => {
         <Icon name="question circle" />
         How it works
       </Menu.Item>
-      {isSignedIn() ? (
+      {isSignedIn ? (
         <Menu.Item
           // as={Link}
           position="right"
@@ -99,7 +105,7 @@ const NavBar = () => {
           as={Link}
           position="right"
           id="signIn"
-          to={`${match.url}signup`}
+          to={`${match.url}signin`}
           active={activeItem === "signIn"}
           onClick={(e) => handleItemClick(e)}
         >
