@@ -11,7 +11,7 @@ const HomePage = () => {
   const [experts, setExperts] = useState([]);
 
   const getExperts = () => {
-    fetch("http://localhost:5100/experts", {
+    fetch("http://localhost:5100/users?expert=true&count=8&sortby=rating", {
       method: "get",
     })
       .then((response) => {

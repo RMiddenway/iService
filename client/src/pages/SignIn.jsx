@@ -28,7 +28,7 @@ const SignIn = () => {
       },
       body: JSON.stringify(form),
     })
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((data) => {
         console.log(data);
         addToast("Logged In Successfully!", {
@@ -36,8 +36,9 @@ const SignIn = () => {
           autoDismiss: true,
         });
         // localStorage.setItem("IS_SIGNED_IN", "true");
-        dispatch(setSignedIn());
-        history.push(data);
+        dispatch(setSignedIn(data._id));
+        dispatch(setUserType(data.userType));
+        history.push("/");
       })
       .catch((err) => {
         console.log("Error", err);

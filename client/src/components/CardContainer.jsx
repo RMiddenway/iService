@@ -53,9 +53,9 @@ const CardContainer = ({ cardType, cards, handleHideTask, handleClick }) => {
   ];
 
   const getTaskCard = (card) => {
-    console.log("====================================");
-    console.log("task card", card);
-    console.log("====================================");
+    // console.log("====================================");
+    // console.log("task card", card);
+    // console.log("====================================");
     return (
       <TaskCard
         key={card._id}
@@ -71,16 +71,16 @@ const CardContainer = ({ cardType, cards, handleHideTask, handleClick }) => {
   };
 
   const getExpertCard = (card) => {
-    console.log("====================================");
-    console.log("expert card", card);
-    console.log("====================================");
+    // console.log("====================================");
+    // console.log("expert card", card);
+    // console.log("====================================");
     return (
       <ExpertCard
         key={card._id}
         firstName={card.firstName}
         lastName={card.lastName}
-        description="TEST DESCRIPTION"
-        rating={2}
+        description={card.bio}
+        rating={card.rating}
 
         // title={card.taskTitle}
         // description={card.taskDescription}
@@ -92,7 +92,7 @@ const CardContainer = ({ cardType, cards, handleHideTask, handleClick }) => {
     );
   };
 
-  // console.log(cards);
+  console.log(cards);
   return (
     <Card.Group centered>
       {cards.map((card) => {

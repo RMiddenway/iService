@@ -9,6 +9,7 @@ import { setSignedOut } from '../auth/authSlice';
 const NavBar = () => {
   // const isSignedIn = useSelector((state) => state.auth.isSignedIn);
   const isSignedIn = localStorage.getItem("IS_SIGNED_IN") === "true";
+  const userType = localStorage.getItem("USER_TYPE");
   const dispatch = useDispatch();
   const history = useHistory();
   const [activeItem, setActiveItem] = useState("home");
@@ -61,14 +62,34 @@ const NavBar = () => {
         <Icon name="add square" />
         Post a task
       </Menu.Item>
-      <Menu.Item
-        id="becomeAnExpert"
-        active={activeItem === "becomeAnExpert"}
-        onClick={(e) => handleItemClick(e)}
-      >
-        <Icon name="user" />
-        Become an expert
-      </Menu.Item>
+      {userType !== "expert" ? (
+        <Menu.Item
+          as={Link}
+          to={`${match.url}becomeexpert`}
+          id="becomeAnExpert"
+          active={activeItem === "becomeAnExpert"}
+          onClick={(e) => handleItemClick(e)}
+        >
+          <Icon name="user" />
+          Become an expert
+        </Menu.Item>
+      ) : (
+        ""
+      )}
+      {userType === "expert" ? (
+        <Menu.Item
+          as={Link}
+          to={`${match.url}jobs`}
+          id="expertArea"
+          active={activeItem === "expertArea"}
+          onClick={(e) => handleItemClick(e)}
+        >
+          <Icon name="user" />
+          Expert Area
+        </Menu.Item>
+      ) : (
+        ""
+      )}
       {/* <Link to="/findtasks">Find</Link> */}
       <Menu.Item
         as={Link}

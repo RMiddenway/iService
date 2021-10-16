@@ -4,7 +4,7 @@ const DateInput = (props) => {
       <div className="col-2">{props.label}</div>
       <input
         type="date"
-        class="col-3"
+        className="col-3"
         onChange={(e) => props.onChange({ [props.inputKey]: e.target.value })}
       ></input>
     </div>

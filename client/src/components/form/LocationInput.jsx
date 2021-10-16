@@ -59,7 +59,7 @@ class LocationInput extends React.Component {
     return this.state.isLoaded ? (
       <div className="px-3 mb-3 d-flex justify-content-left">
         <div className="col-2">Task Location:</div>
-        <div className="col-6 p-2">
+        <div className="col-6">
           <PlacesAutocomplete
             value={this.state.address}
             onChange={this.handleChange}

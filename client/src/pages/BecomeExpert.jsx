@@ -1,23 +1,28 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 
-const SignUp = () => {
+import { setUserType } from '../auth/authSlice';
+
+const BecomeExpert = () => {
+  // const userId = useSelector((state) => state.auth.userId);
+  const dispatch = useDispatch();
+  const userId = localStorage.getItem("USER_ID");
+  console.log(userId);
+  // const isSignedIn = localStorage.getItem("IS_SIGNED_IN") === "true";
   const { addToast } = useToasts();
   const history = useHistory();
   const [form, setForm] = useState({
-    // country: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    userType: "user",
-    // addressFirst: "",
-    // addressSecond: "",
-    // city: "",
-    // region: "",
-    // postcode: "",
-    // phone: "",
+    country: "",
+    addressFirst: "",
+    addressSecond: "",
+    city: "",
+    region: "",
+    postcode: "",
+    phone: "",
+    bio: "",
+    userType: "expert",
   });
 
   const onChange = (e) => {
@@ -25,12 +30,19 @@ const SignUp = () => {
   };
 
   const submit = (e) => {
-    console.log("====================================");
-    console.log(form);
-    console.log("====================================");
+    // console.log("====================================");
+    // console.log(form);
+    // console.log("====================================");
     e.preventDefault();
-    fetch("http://localhost:5100/signup", {
-      method: "post",
+
+    // let headers = new Headers();
+    // headers.append("Content-Type", "application/json");
+    // headers.append("Access-Control-Allow-Origin", "http://localhost:3000");
+    // headers.append("Access-Control-Allow-Credentials", "true");
+
+    fetch(`http://localhost:5100/users/${userId}`, {
+      method: "put",
+      // headers: headers,
       headers: {
         "Content-Type": "application/json",
       },
@@ -39,35 +51,37 @@ const SignUp = () => {
       .then((response) => response.text())
       .then((data) => {
         console.log(data);
-        addToast("Signed Up Successfully!", {
+        addToast("Status changed to expert!", {
           appearance: "success",
           autoDismiss: true,
         });
-        history.push(data);
+        dispatch(setUserType("expert"));
+        history.push("/");
       })
       .catch((err) => {
+        console.log(userId);
         console.log("Error", err);
       });
   };
 
   const checkFormValid = () => {
+    return true;
     // todo - add better form validation
-    return form.password === form.confirmPassword;
+    // return form.password === form.confirmPassword;
   };
-
   return (
     <>
       <form id="form" onSubmit={(e) => submit(e)}>
         <div className="d-flex justify-content-center">
           <div className="form col-6">
             <div className="row">
-              <h2 className="mb-4 text-teal">
-                Sign up for an iService account
-              </h2>
-              {/* <h5 className="mb-3 text-teal">Create an iService Account</h5> */}
+              <h2 className="mb-4 text-teal">Become an expert!</h2>
+              <h5 className="mb-3 text-teal">
+                We just need a few more details
+              </h5>
             </div>
 
-            {/* <div className="row mb-3">
+            <div className="row mb-3">
               <div className="col">
                 <label for="country">Country of residence*</label>
                 <select
@@ -83,66 +97,9 @@ const SignUp = () => {
                   <option value="FR">France</option>
                 </select>
               </div>
-            </div> */}
-            <div className="row mb-3">
-              <div className="col">
-                <label for="firstName">First name*</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="firstName"
-                  onChange={(e) => onChange(e)}
-                  required
-                />
-              </div>
-              <div className="col">
-                <label for="lastName">Last name*</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="lastName"
-                  onChange={(e) => onChange(e)}
-                  required
-                />
-              </div>
             </div>
+
             <div className="row mb-3">
-              <div className="col">
-                <label for="email">Email*</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  name="email"
-                  onChange={(e) => onChange(e)}
-                  required
-                />
-              </div>
-            </div>
-            <div className="row mb-3">
-              <div className="col">
-                <label for="password">Password*</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  onChange={(e) => onChange(e)}
-                  required
-                />
-              </div>
-            </div>
-            <div className="row mb-3">
-              <div className="col">
-                <label for="confirmpassword">Confirm Password*</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  name="confirmPassword"
-                  onChange={(e) => onChange(e)}
-                  required
-                />
-              </div>
-            </div>
-            {/* <div className="row mb-3">
               <div className="col">
                 <label for="address">Address*</label>
                 <input
@@ -203,7 +160,20 @@ const SignUp = () => {
                   onChange={(e) => onChange(e)}
                 />
               </div>
-            </div> */}
+            </div>
+            <div className="row mb-3">
+              <div className="col">
+                <label for="phone">Bio</label>
+                <textarea
+                  type="text"
+                  className="form-control"
+                  rows={5}
+                  name="bio"
+                  onChange={(e) => onChange(e)}
+                  placeholder="Write a brief description of your qualifications and what kind of work you're looking for."
+                />
+              </div>
+            </div>
             <p
               className="mb-3 text-danger"
               style={{ whiteSpace: "pre-line" }}
@@ -222,7 +192,7 @@ const SignUp = () => {
                 button-teal
               "
               >
-                Create Account
+                Submit
               </button>
             </div>
           </div>
@@ -232,4 +202,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default BecomeExpert;

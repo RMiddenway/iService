@@ -7,6 +7,7 @@ import { ToastProvider } from 'react-toast-notifications';
 import PrivateRoute from './auth/PrivateRoute';
 import NavBar from './components/NavBar';
 import TaskMap from './components/TaskMap';
+import BecomeExpert from './pages/BecomeExpert';
 import FindTask from './pages/FindTask';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
@@ -30,6 +31,7 @@ function App() {
               <PrivateRoute path="/posttask" component={TaskForm} />
               <Route exact path="/taskmap" component={TaskMap} />
               <Route path="/findtask" component={FindTask} />
+              <Route path="/becomeexpert" component={BecomeExpert} />
             </Switch>
           </Router>
         </ToastProvider>
