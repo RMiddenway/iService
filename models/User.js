@@ -32,23 +32,26 @@ const userSchema = new mongoose.Schema({
   },
   addressFirst: {
     type: String,
-    required: [true, "Street address is required"],
+    // required: [true, "Street address is required"],
   },
   addressSecond: String,
   city: {
     type: String,
-    required: [true, "City is required"],
+    // required: [true, "City is required"],
   },
   region: {
     type: String,
-    required: [true, "Region is required"],
+    // required: [true, "Region is required"],
   },
   country: {
     type: String,
-    required: [true, "Country is required"],
+    // required: [true, "Country is required"],
   },
   postcode: String,
   phone: String,
+  userType: String,
+  bio: String,
+  ratings: [Number],
 });
 
 module.exports = mongoose.model("User", userSchema);

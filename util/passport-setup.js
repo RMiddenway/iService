@@ -7,7 +7,7 @@ const localDB = "mongodb://localhost:27017/iServiceDB";
 const remoteDB =
   "mongodb+srv://admin-roger:password2020@cluster0.knut4.mongodb.net/uninewsletterDB?retryWrites=true&w=majority";
 // todo - change when switching between local and heroku
-mongoose.connect(localDB, {
+mongoose.connect(remoteDB, {
   useNewUrlParser: true,
 });
 
