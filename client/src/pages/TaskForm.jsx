@@ -20,6 +20,7 @@ const TaskForm = () => {
     budgetType: "Total",
     budgetValue: "",
     taskImageId: "",
+    userId: localStorage.getItem("USER_ID"),
   };
   const [form, setForm] = useState(initialForm);
   const { addToast } = useToasts();
@@ -81,12 +82,6 @@ const TaskForm = () => {
   // const onChange = (inputKey, e) => {
   // setForm({ ...form, [inputKey]: e.target.value });
   const onChange = (input) => {
-    console.log("====================================");
-    console.log(input);
-    console.log("====================================");
-    console.log(form);
-    console.log("====================================");
-
     setForm({ ...form, ...input });
   };
   const submitForm = (e) => {

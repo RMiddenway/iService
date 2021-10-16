@@ -8,8 +8,10 @@ import PrivateRoute from './auth/PrivateRoute';
 import NavBar from './components/NavBar';
 import TaskMap from './components/TaskMap';
 import BecomeExpert from './pages/BecomeExpert';
+import ExpertArea from './pages/ExpertArea';
 import FindTask from './pages/FindTask';
 import Home from './pages/Home';
+import MyTasks from './pages/MyTasks';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import TaskForm from './pages/TaskForm';
@@ -29,9 +31,11 @@ function App() {
               <Route exact path="/signup" component={SignUp} />
               <Route exact path="/signin" component={SignIn} />
               <PrivateRoute path="/posttask" component={TaskForm} />
+              <PrivateRoute path="/mytasks" component={MyTasks} />
+              <PrivateRoute path="/expertarea" component={ExpertArea} />
               <Route exact path="/taskmap" component={TaskMap} />
               <Route path="/findtask" component={FindTask} />
-              <Route path="/becomeexpert" component={BecomeExpert} />
+              <PrivateRoute path="/becomeexpert" component={BecomeExpert} />
             </Switch>
           </Router>
         </ToastProvider>

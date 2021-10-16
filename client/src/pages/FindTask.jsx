@@ -5,14 +5,17 @@ import CardContainer from '../components/CardContainer';
 import TaskMap from '../components/TaskMap';
 
 const FindTask = () => {
+  const userId = localStorage.getItem("USER_ID");
   const [tasks, setTasks] = useState([]);
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({ status: "open" });
   const [activeTask, setActiveTask] = useState();
 
   const onChange = (label, e) => {
     if (e.target.value === "") {
     }
     setFilters({ ...filters, [label]: e.target.value });
+    // todo ----- add tasks to expert area, add task form for final cost and complete
+    // todo - --- add payment area for completed tasks
   };
 
   const applyFilters = () => {
@@ -20,8 +23,9 @@ const FindTask = () => {
   };
 
   const getTasks = (queryParams) => {
-    fetch(`http://localhost:5100/task?${queryParams}`, {
+    fetch(`http://localhost:5100/task?${queryParams}&${userId}`, {
       method: "get",
+      // body: JSON.stringify({ userId: userId }),
     })
       .then((response) => response.json())
       .then((data) => setTasks(data))
@@ -42,7 +46,7 @@ const FindTask = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ taskId: taskId }),
+      body: JSON.stringify({ taskId: taskId, userId: userId }),
     })
       .then((response) => {
         if (response.status === 200) {
@@ -66,6 +70,25 @@ const FindTask = () => {
       .then((data) => {
         setActiveTask({ ...task, taskImage: data.base64 });
         setModalOpen(!modalOpen);
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
+  };
+
+  const handleAcceptTask = (e) => {
+    fetch("http://localhost:5100/accepttask", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ taskId: e._id, expertId: userId }),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          getTasks();
+          setModalOpen(false);
+        }
       })
       .catch((err) => {
         console.log("Error", err);
@@ -141,7 +164,12 @@ const FindTask = () => {
                   >
                     Hide Task
                   </Button>
-                  <Button color="green">Accept Task</Button>
+                  <Button
+                    color="green"
+                    onClick={(e) => handleAcceptTask(activeTask)}
+                  >
+                    Accept Task
+                  </Button>
                 </div>
               </Modal.Actions>
             </Modal>

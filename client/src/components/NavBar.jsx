@@ -79,7 +79,7 @@ const NavBar = () => {
       {userType === "expert" ? (
         <Menu.Item
           as={Link}
-          to={`${match.url}jobs`}
+          to={`${match.url}expertarea`}
           id="expertArea"
           active={activeItem === "expertArea"}
           onClick={(e) => handleItemClick(e)}
@@ -91,17 +91,31 @@ const NavBar = () => {
         ""
       )}
       {/* <Link to="/findtasks">Find</Link> */}
-      <Menu.Item
-        as={Link}
-        to={`${match.url}findtask`}
-        // to="/findtasks"
-        id="findTasks"
-        active={activeItem === "findTasks"}
-        onClick={(e) => handleItemClick(e)}
-      >
-        <Icon name="search" />
-        Find tasks
-      </Menu.Item>
+      {userType === "expert" ? (
+        <Menu.Item
+          as={Link}
+          to={`${match.url}findtask`}
+          // to="/findtasks"
+          id="findTasks"
+          active={activeItem === "findTasks"}
+          onClick={(e) => handleItemClick(e)}
+        >
+          <Icon name="search" />
+          Find tasks
+        </Menu.Item>
+      ) : (
+        <Menu.Item
+          as={Link}
+          to={`${match.url}mytasks`}
+          // to="/findtasks"
+          id="myTasks"
+          active={activeItem === "myTasks"}
+          onClick={(e) => handleItemClick(e)}
+        >
+          <Icon name="search" />
+          My tasks
+        </Menu.Item>
+      )}
       <Menu.Item
         id="howItWorks"
         active={activeItem === "howItWorks"}

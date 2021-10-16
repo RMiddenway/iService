@@ -1,7 +1,7 @@
-import { Card, Confirm } from 'semantic-ui-react';
+import { Card, Confirm } from "semantic-ui-react";
 
-import ExpertCard from './ExpertCard';
-import TaskCard from './TaskCard';
+import ExpertCard from "./ExpertCard";
+import TaskCard from "./TaskCard";
 
 const CardContainer = ({ cardType, cards, handleHideTask, handleClick }) => {
   const placeholderExperts = [
@@ -92,15 +92,20 @@ const CardContainer = ({ cardType, cards, handleHideTask, handleClick }) => {
     );
   };
 
-  console.log(cards);
   return (
-    <Card.Group centered>
-      {cards.map((card) => {
-        if (cardType === "task") return getTaskCard(card);
-        else if (cardType === "expert") return getExpertCard(card);
-        else return <></>;
-      })}
-    </Card.Group>
+    <>
+      {cards.length === 0 ? (
+        <div className="m-5">No {cardType} found</div>
+      ) : (
+        <Card.Group centered>
+          {cards.map((card) => {
+            if (cardType === "task") return getTaskCard(card);
+            else if (cardType === "expert") return getExpertCard(card);
+            else return <></>;
+          })}
+        </Card.Group>
+      )}
+    </>
   );
 };
 
