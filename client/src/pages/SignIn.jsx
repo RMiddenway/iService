@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { useToasts } from 'react-toast-notifications';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 
-import { setSignedIn, setUserType } from '../auth/authSlice';
+import { setSignedIn, setUserType } from "../auth/authSlice";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const SignIn = () => {
   return (
     <>
       <div className="d-flex justify-content-center">
-        <div className="form col-4">
+        <div className="form col-6">
           <div className="card">
             <article className="card-body">
               <h2 className="text-center text-teal">iService</h2>
@@ -57,11 +57,11 @@ const SignIn = () => {
               <form id="form" onSubmit={(e) => onSubmit(e)}>
                 <div className="form-group mb-2">
                   <div className="input-group">
-                    <div className="input-group-prepend">
+                    {/* <div className="input-group-prepend">
                       <span className="input-group-text">
                         <i className="fa fa-user fa-fw py-1"></i>
                       </span>
-                    </div>
+                    </div> */}
                     <input
                       name="email"
                       className="form-control"
@@ -75,11 +75,11 @@ const SignIn = () => {
                 {/* <!-- form-group// --> */}
                 <div className="form-group mb-2">
                   <div className="input-group">
-                    <div className="input-group-prepend">
+                    {/* <div className="input-group-prepend">
                       <span className="input-group-text">
                         <i className="fa fa-lock fa-fw py-1"></i>
                       </span>
-                    </div>
+                    </div> */}
                     <input
                       name="password"
                       className="form-control"
@@ -96,7 +96,7 @@ const SignIn = () => {
                   style={{ whiteSpace: "pre-line" }}
                   id="error-text"
                 ></p>
-                <div className="row center">
+                {/* <div className="row center">
                   <label>
                     <input
                       name="remember"
@@ -105,7 +105,7 @@ const SignIn = () => {
                     />
                     <span>Remember Me</span>
                   </label>
-                </div>
+                </div> */}
                 <div className="form-group row">
                   <div className="d-flex justify-content-center">
                     <button
@@ -113,13 +113,13 @@ const SignIn = () => {
                       className="
                       btn btn-primary
                       mb-3
-                      px-4\
+                      px-4
                       d-flex
                       justify-content-center
                       button-teal
                     "
                     >
-                      Login
+                      Sign In
                     </button>
                   </div>
                 </div>
@@ -131,7 +131,7 @@ const SignIn = () => {
                 </p>
               </form>
             </article>
-            <div className="col s12 m6 offset-m3 center-align">
+            {/* <div className="col s12 m6 offset-m3 center-align">
               <a
                 className="oauth-container btn darken-4 white black-text"
                 href="/auth/google"
@@ -147,7 +147,7 @@ const SignIn = () => {
                 </div>
                 Sign in with Google
               </a>
-            </div>
+            </div> */}
           </div>
           {/* <!-- card.// --> */}
         </div>

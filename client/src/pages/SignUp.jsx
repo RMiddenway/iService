@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useToasts } from 'react-toast-notifications';
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 
 const SignUp = () => {
   const { addToast } = useToasts();
@@ -225,6 +225,9 @@ const SignUp = () => {
                 Create Account
               </button>
             </div>
+            <p>
+              Already have an account? <a href="/signin">Sign in!</a>
+            </p>
           </div>
         </div>
       </form>
