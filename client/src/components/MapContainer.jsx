@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 
 const MapContainer = (props) => {
   // const [currentLocation, setCurrentLocation] = useState({ lat: 0, lng: 0 });
-
+  const arr = [3, 4];
+  // arr.map()
   const containerStyle = {
     // position: "relative",
     width: "50%",
     height: "50%",
   };
-
+  console.log(props.tasks);
   return (
     <Map
       google={props.google}
@@ -23,15 +24,18 @@ const MapContainer = (props) => {
       {/* <InfoWindow onClose={this.onInfoWindowClose}> */}
       {/* <div><h1>{this.state.selectedPlace.name}</h1></div> */}
       {/* </InfoWindow> */}
-      <Marker
-        name="TEST"
-        position={{ lat: 48.822622473473295, lng: 2.3746706624644585 }}
-        // icon={{
-        //   url: "/path/to/custom_icon.png",
-        //   anchor: new props.google.maps.Point(32, 32),
-        //   scaledSize: new props.google.maps.Size(64, 64),
-        // }}
-      />
+      {props.tasks.map((task) => (
+        <Marker
+          name={task.taskTitle}
+          // todo - replace with task coordinates
+          position={{ lat: task.lat, lng: task.lng }}
+          // icon={{
+          //   url: "/path/to/custom_icon.png",
+          //   anchor: new props.google.maps.Point(32, 32),
+          //   scaledSize: new props.google.maps.Size(64, 64),
+          // }}
+        />
+      ))}
     </Map>
   );
 };

@@ -1,9 +1,10 @@
-import CurrencyInput from "./CurrencyInput";
-import DateInput from "./DateInput";
-import ImageUpload from "./ImageUpload";
-import RadioButtonGroup from "./RadioButtonGroup";
-import SectionHeader from "./SectionHeader";
-import TextInput from "./TextInput";
+import CurrencyInput from './CurrencyInput';
+import DateInput from './DateInput';
+import ImageUpload from './ImageUpload';
+import LocationInput from './LocationInput';
+import RadioButtonGroup from './RadioButtonGroup';
+import SectionHeader from './SectionHeader';
+import TextInput from './TextInput';
 
 const FormSection = (props) => {
   return (
@@ -59,6 +60,15 @@ const FormSection = (props) => {
           inputKey={props.field.inputKey}
           onChange={props.onChange}
         ></ImageUpload>
+      ) : (
+        ""
+      )}
+      {props.field.type === "location" ? (
+        <LocationInput
+          // label={props.field.label}
+          // inputKey={props.field.inputKey}
+          onChange={props.onChange}
+        ></LocationInput>
       ) : (
         ""
       )}

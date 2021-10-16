@@ -1,7 +1,7 @@
 const RadioButtonGroup = (props) => {
   const handleChange = (e) => {
     if (e.target.checked) {
-      props.onChange(props.inputKey, e);
+      props.onChange({ [props.inputKey]: e.target.value });
     }
   };
 

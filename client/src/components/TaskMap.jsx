@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLastLocation } from '../location/locationSlice';
 import MapContainer from './MapContainer';
 
-const TaskMap = () => {
+const TaskMap = (props) => {
   const lastLocation = useSelector((state) => state.location.lastLocation);
   const dispatch = useDispatch();
   // const [currentLocation, setCurrentLocation] = useState({ lastLocation });
@@ -19,7 +19,12 @@ const TaskMap = () => {
   return (
     <>
       <div>
-        <MapContainer currentLocation={lastLocation} zoom={4}></MapContainer>;
+        <MapContainer
+          currentLocation={lastLocation}
+          zoom={4}
+          tasks={props.tasks}
+        ></MapContainer>
+        ;
       </div>
     </>
   );

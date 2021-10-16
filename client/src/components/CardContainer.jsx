@@ -1,7 +1,7 @@
-import { Card, Confirm } from "semantic-ui-react";
+import { Card, Confirm } from 'semantic-ui-react';
 
-import ExpertCard from "./ExpertCard";
-import TaskCard from "./TaskCard";
+import ExpertCard from './ExpertCard';
+import TaskCard from './TaskCard';
 
 const CardContainer = ({ cardType, cards, handleHideTask, handleClick }) => {
   const placeholderExperts = [
@@ -51,24 +51,54 @@ const CardContainer = ({ cardType, cards, handleHideTask, handleClick }) => {
       rating: 5,
     },
   ];
+
+  const getTaskCard = (card) => {
+    console.log("====================================");
+    console.log("task card", card);
+    console.log("====================================");
+    return (
+      <TaskCard
+        key={card._id}
+        taskId={card._id}
+        title={card.taskTitle}
+        description={card.taskDescription}
+        suburb={card.suburb}
+        date={card.taskDate?.substring(0, 10)}
+        handleHideTask={handleHideTask}
+        handleClick={handleClick}
+      />
+    );
+  };
+
+  const getExpertCard = (card) => {
+    console.log("====================================");
+    console.log("expert card", card);
+    console.log("====================================");
+    return (
+      <ExpertCard
+        key={card._id}
+        firstName={card.firstName}
+        lastName={card.lastName}
+        description="TEST DESCRIPTION"
+        rating={2}
+
+        // title={card.taskTitle}
+        // description={card.taskDescription}
+        // suburb={card.suburb}
+        // date={card.taskDate?.substring(0, 10)}
+        // handleHideTask={handleHideTask}
+        // handleClick={handleClick}
+      />
+    );
+  };
+
   // console.log(cards);
   return (
     <Card.Group centered>
       {cards.map((card) => {
-        return cardType === "task" ? (
-          <TaskCard
-            key={card._id}
-            taskId={card._id}
-            title={card.taskTitle}
-            description={card.taskDescription}
-            suburb={card.suburb}
-            date={card.taskDate?.substring(0, 10)}
-            handleHideTask={handleHideTask}
-            handleClick={handleClick}
-          />
-        ) : (
-          <></>
-        );
+        if (cardType === "task") return getTaskCard(card);
+        else if (cardType === "expert") return getExpertCard(card);
+        else return <></>;
       })}
     </Card.Group>
   );

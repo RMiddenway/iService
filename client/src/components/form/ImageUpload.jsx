@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Button } from "semantic-ui-react";
+import { useState } from 'react';
+import { Button } from 'semantic-ui-react';
 
 const ImageUpload = (props) => {
   const [imagePost, setImagePost] = useState("");
@@ -32,7 +32,7 @@ const ImageUpload = (props) => {
       .then((response) => response.json())
       .then((data) => {
         // Send uploaded image id to parent form
-        props.onChange(props.inputKey, { target: { value: data } });
+        props.onChange({ [props.inputKey]: data });
       })
       .catch((err) => {
         console.log("Error", err);

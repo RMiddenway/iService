@@ -6,7 +6,7 @@ const CurrencyInput = (props) => {
         type="number"
         min="1"
         step="any"
-        onChange={(e) => props.onChange(props.inputKey, e)}
+        onChange={(e) => props.onChange({ [props.inputKey]: e.target.value })}
       ></input>
     </div>
   );

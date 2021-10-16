@@ -7,7 +7,8 @@ import { Icon, Menu } from 'semantic-ui-react';
 import { setSignedOut } from '../auth/authSlice';
 
 const NavBar = () => {
-  const isSignedIn = useSelector((state) => state.auth.isSignedIn);
+  // const isSignedIn = useSelector((state) => state.auth.isSignedIn);
+  const isSignedIn = localStorage.getItem("IS_SIGNED_IN") === "true";
   const dispatch = useDispatch();
   const history = useHistory();
   const [activeItem, setActiveItem] = useState("home");

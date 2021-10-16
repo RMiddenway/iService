@@ -10,6 +10,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
+    {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUCMDUivWwkXhxIaV7Uvwu3kOYU-LPx4k&libraries=places"></script> */}
     <App />
   </React.StrictMode>,
   document.getElementById("root")

@@ -147,7 +147,7 @@ const FindTask = () => {
             </Modal>
           </div>
           <div className="col">
-            <TaskMap />
+            <TaskMap tasks={tasks} />
           </div>
         </div>
       </div>

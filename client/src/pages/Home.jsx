@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 
 import CardContainer from '../components/CardContainer';
@@ -7,11 +8,32 @@ import NewsletterSignUp from '../components/NewsletterSignUp';
 import SocialMedia from '../components/SocialMedia';
 
 const HomePage = () => {
+  const [experts, setExperts] = useState([]);
+
+  const getExperts = () => {
+    fetch("http://localhost:5100/experts", {
+      method: "get",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setExperts(data);
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
+  };
+
+  useEffect(() => {
+    getExperts();
+  }, []);
+
   return (
     <>
       <HeaderImage className="m-5 p-5"></HeaderImage>
       <Header as="h1">Featured Experts</Header>
-      {/* <CardContainer></CardContainer> */}
+      <CardContainer cardType="expert" cards={experts}></CardContainer>
       <Grid className="bg-light">
         <Grid.Column width="10" verticalAlign="middle">
           <NewsletterSignUp></NewsletterSignUp>

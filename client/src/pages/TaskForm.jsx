@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Button, Container } from "semantic-ui-react";
-import { useToasts } from "react-toast-notifications";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
+import { Button, Container } from 'semantic-ui-react';
 
-import FormSection from "../components/form/FormSection";
+import FormSection from '../components/form/FormSection';
+import LocationInput from '../components/form/LocationInput';
+
+// import PlacesInput from '../components/form/PlacesInput';
 
 const TaskForm = () => {
   const initialForm = {
@@ -11,6 +14,8 @@ const TaskForm = () => {
     taskTitle: "",
     taskDescription: "",
     suburb: "",
+    lat: "",
+    lng: "",
     taskDate: "",
     budgetType: "Total",
     budgetValue: "",
@@ -54,9 +59,7 @@ const TaskForm = () => {
     },
     { key: "field7", type: "header", label: "Setting up your Task" },
     // form.taskType === "In person"
-    form.taskType === "In person"
-      ? { type: "text", label: "Suburb: ", inputKey: "suburb" }
-      : "",
+    form.taskType === "In person" ? { type: "location" } : "",
     { key: "field8", type: "date", label: "Date: ", inputKey: "taskDate" },
     { key: "field9", type: "header", label: "Suggest how much" },
     {
@@ -75,8 +78,16 @@ const TaskForm = () => {
 
   const [fields, setFields] = useState(initialFields);
 
-  const onChange = (inputKey, e) => {
-    setForm({ ...form, [inputKey]: e.target.value });
+  // const onChange = (inputKey, e) => {
+  // setForm({ ...form, [inputKey]: e.target.value });
+  const onChange = (input) => {
+    console.log("====================================");
+    console.log(input);
+    console.log("====================================");
+    console.log(form);
+    console.log("====================================");
+
+    setForm({ ...form, ...input });
   };
   const submitForm = (e) => {
     fetch("http://localhost:5100/task", {
@@ -101,6 +112,7 @@ const TaskForm = () => {
 
   return (
     <Container>
+      {/* <LocationInput></LocationInput> */}
       {fields.map((field) => (
         <FormSection
           field={field}

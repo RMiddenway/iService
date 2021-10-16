@@ -10,7 +10,7 @@ const TextInput = (props) => {
         rows={props.rows || 1}
         placeholder={props.placeholder}
         className="col-6 p-2"
-        onChange={(e) => props.onChange(props.inputKey, e)}
+        onChange={(e) => props.onChange({ [props.inputKey]: e.target.value })}
       ></TextArea>
     </div>
   );
