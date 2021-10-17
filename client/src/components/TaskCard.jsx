@@ -18,7 +18,7 @@ const TaskCard = ({
       <Card.Content>
         <div>
           <Card.Header
-            as="h3"
+            // as="h3"
             className={isHighlighted ? "font-weight-bold color-teal" : ""}
           >
             {title}
