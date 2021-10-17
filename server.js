@@ -1,4 +1,5 @@
 //. GENERAL IMPORTS
+const path = require("path");
 const https = require("https");
 const express = require("express");
 const cors = require("cors");
@@ -535,9 +536,12 @@ app.get("/cancel", (req, res) => {
   res.sendFile(__dirname + "/payment-cancel.html");
 });
 
-app.get("*", function (request, response) {
-  response.sendFile(path.resolve(__dirname, "../react-ui/build", "index.html"));
-});
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 let PORT = process.env.PORT;
 if (PORT == null || PORT == "") {
