@@ -133,6 +133,7 @@ const FindTask = () => {
               cards={tasks}
               handleHideTask={handleHideTask}
               handleClick={handleClick}
+              highlightedId={highlightedTaskId}
             ></CardContainer>
             <Modal
               closeIcon

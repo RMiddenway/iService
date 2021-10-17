@@ -1,9 +1,15 @@
-import { Card, Confirm } from "semantic-ui-react";
+import { Card, Confirm } from 'semantic-ui-react';
 
-import ExpertCard from "./ExpertCard";
-import TaskCard from "./TaskCard";
+import ExpertCard from './ExpertCard';
+import TaskCard from './TaskCard';
 
-const CardContainer = ({ cardType, cards, handleHideTask, handleClick }) => {
+const CardContainer = ({
+  cardType,
+  cards,
+  handleHideTask,
+  handleClick,
+  highlightedId,
+}) => {
   const placeholderExperts = [
     {
       key: 0,
@@ -66,6 +72,7 @@ const CardContainer = ({ cardType, cards, handleHideTask, handleClick }) => {
         date={card.taskDate?.substring(0, 10)}
         handleHideTask={handleHideTask}
         handleClick={handleClick}
+        isHighlighted={card._id === highlightedId ? true : false}
       />
     );
   };

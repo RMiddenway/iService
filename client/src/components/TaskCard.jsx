@@ -1,4 +1,4 @@
-import { Card } from "semantic-ui-react";
+import { Card } from 'semantic-ui-react';
 
 const TaskCard = ({
   title,
@@ -7,9 +7,14 @@ const TaskCard = ({
   date,
   taskId,
   handleClick,
+  isHighlighted,
 }) => {
   return (
-    <Card className="bg-light" raised onClick={(e) => handleClick(taskId)}>
+    <Card
+      className={isHighlighted ? "bg-info" : "bg-light"}
+      raised
+      onClick={(e) => handleClick(taskId)}
+    >
       <Card.Content>
         <div>
           <Card.Header as="h3">{title}</Card.Header>
