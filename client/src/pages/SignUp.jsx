@@ -225,8 +225,8 @@ const SignUp = () => {
                 Create Account
               </button>
             </div>
-            <p>
-              Already have an account? <a href="/signin">Sign in!</a>
+            <p onClick={(e) => history.push("/signin")}>
+              Already have an account? Sign in!
             </p>
           </div>
         </div>
