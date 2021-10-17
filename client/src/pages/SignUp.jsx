@@ -29,7 +29,7 @@ const SignUp = () => {
     console.log(form);
     console.log("====================================");
     e.preventDefault();
-    fetch("http://localhost:5100/api/signup", {
+    fetch("/api/signup", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
