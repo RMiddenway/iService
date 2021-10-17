@@ -17,6 +17,7 @@
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "google-auth-library": "^7.10.1",
     "googleapis": "^85.0.0",
     "mongodb": "^4.1.0",
     "mongoose": "^5.13.5",

@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { useToasts } from "react-toast-notifications";
-import { Button, Icon } from "semantic-ui-react";
+import { useState } from 'react';
+import { GoogleLogin } from 'react-google-login';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
+import { Button, Icon } from 'semantic-ui-react';
 
-import { setSignedIn, setUserType } from "../auth/authSlice";
+import { setSignedIn, setUserType } from '../auth/authSlice';
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -46,6 +47,20 @@ const SignIn = () => {
       });
   };
 
+  const handleLogin = async (googleData) => {
+    const res = await fetch("/api/v1/auth/google", {
+      method: "POST",
+      body: JSON.stringify({
+        token: googleData.tokenId,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    // store returned user somehow
+  };
+
   return (
     <>
       <div className="d-flex justify-content-center">
@@ -61,11 +76,6 @@ const SignIn = () => {
               <form id="form" onSubmit={(e) => onSubmit(e)}>
                 <div className="form-group mb-2">
                   <div className="input-group">
-                    {/* <div className="input-group-prepend">
-                      <span className="input-group-text">
-                        <i className="fa fa-user fa-fw py-1"></i>
-                      </span>
-                    </div> */}
                     <input
                       name="email"
                       className="form-control"
@@ -74,16 +84,9 @@ const SignIn = () => {
                       onChange={(e) => onChange(e)}
                     />
                   </div>
-                  {/* <!-- input-group.// --> */}
                 </div>
-                {/* <!-- form-group// --> */}
                 <div className="form-group mb-2">
                   <div className="input-group">
-                    {/* <div className="input-group-prepend">
-                      <span className="input-group-text">
-                        <i className="fa fa-lock fa-fw py-1"></i>
-                      </span>
-                    </div> */}
                     <input
                       name="password"
                       className="form-control"
@@ -92,9 +95,7 @@ const SignIn = () => {
                       onChange={(e) => onChange(e)}
                     />
                   </div>
-                  {/* <!-- input-group.// --> */}
                 </div>
-                {/* <!-- form-group// --> */}
                 <p
                   className="mb-3 text-danger"
                   style={{ whiteSpace: "pre-line" }}
@@ -128,7 +129,6 @@ const SignIn = () => {
                     </Button>
                   </div>
                 </div>
-                {/* <!-- form-group// --> */}
                 <p
                   className="text-center"
                   onClick={(e) => {
@@ -139,25 +139,17 @@ const SignIn = () => {
                 </p>
               </form>
             </article>
-            {/* <div className="col s12 m6 offset-m3 center-align">
-              <a
-                className="oauth-container btn darken-4 white black-text"
-                href="/auth/google"
-                style={{ textTransform: "none" }}
-              >
-                <div className="left">
-                  <img
-                    width="20px"
-                    style={{ marginTop: "7px; margin-right: 8px" }}
-                    alt="Google sign-in"
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
-                  />
-                </div>
-                Sign in with Google
-              </a>
-            </div> */}
+            <GoogleLogin
+              className="justify-content-center"
+              clientId={
+                "304926904443-4altq1dv50t5hciuvstp3hlv1lm0d6fk.apps.googleusercontent.com"
+              }
+              buttonText="Sign in with Google"
+              onSuccess={handleLogin}
+              onFailure={handleLogin}
+              cookiePolicy={"single_host_origin"}
+            />
           </div>
-          {/* <!-- card.// --> */}
         </div>
       </div>
     </>

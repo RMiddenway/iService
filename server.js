@@ -12,6 +12,10 @@ const bcrypt = require("bcrypt");
 const hashPassword = require("./util/hashPassword");
 const cookieSession = require("cookie-session");
 require("./util/passport-setup");
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client(
+  "304926904443-4altq1dv50t5hciuvstp3hlv1lm0d6fk.apps.googleusercontent.com"
+);
 // const auth = require("./auth.js");
 
 // DATABASE IMPORTS
@@ -64,23 +68,40 @@ mongoose.connect(remoteDB, {
 });
 
 // AUTH ROUTES
-app.get(
-  "/auth/google",
-  passport.authenticate("google", {
-    scope: ["profile", "email"],
-  })
-);
+app.post("/api/v1/auth/google", async (req, res) => {
+  const { token } = req.body;
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: process.env.CLIENT_ID,
+  });
+  const { name, email, picture } = ticket.getPayload();
+  const user = await User.upsert({
+    where: { email: email },
+    update: { name, picture },
+    create: { name, email, picture },
+  });
+  req.session.userId = user.id;
 
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "/fail",
-    failureFlash: true,
-  }),
-  (req, res) => {
-    res.redirect("/home");
-  }
-);
+  res.status(201);
+  res.json(user);
+});
+// app.get(
+//   "/auth/google",
+//   passport.authenticate("google", {
+//     scope: ["profile", "email"],
+//   })
+// );
+
+// app.get(
+//   "/auth/google/callback",
+//   passport.authenticate("google", {
+//     failureRedirect: "/fail",
+//     failureFlash: true,
+//   }),
+//   (req, res) => {
+//     res.redirect("/home");
+//   }
+// );
 
 app.get("/api/fail", (req, res) => {
   res.sendStatus(500);
@@ -442,102 +463,102 @@ app.post("/api/payment", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-app.post("/create-checkout-session", async (req, res) => {
-  const prices = await stripe.prices.list({
-    lookup_keys: [req.body.lookup_key],
-    expand: ["data.product"],
-  });
-  const session = await stripe.checkout.sessions.create({
-    billing_address_collection: "auto",
-    payment_method_types: ["card"],
-    line_items: [
-      {
-        price: prices.data[0].id,
-        quantity: 1,
-      },
-    ],
-    mode: "subscription",
-    success_url: `${YOUR_DOMAIN}/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${YOUR_DOMAIN}/cancel`,
-  });
-  res.redirect(303, session.url);
-});
-app.post("/create-portal-session", async (req, res) => {
-  const { session_id } = req.body;
-  const checkoutSession = await stripe.checkout.sessions.retrieve(session_id);
-  const returnUrl = YOUR_DOMAIN;
-  const portalSession = await stripe.billingPortal.sessions.create({
-    customer: checkoutSession.customer,
-    return_url: returnUrl,
-  });
-  res.redirect(303, portalSession.url);
-});
-app.post(
-  "/webhook",
-  express.raw({ type: "application/json" }),
-  (request, response) => {
-    const event = request.body;
-    const endpointSecret = "whsec_12345";
-    if (endpointSecret) {
-      // Get the signature sent by Stripe
-      const signature = request.headers["stripe-signature"];
-      try {
-        event = stripe.webhooks.constructEvent(
-          request.body,
-          signature,
-          endpointSecret
-        );
-      } catch (err) {
-        console.log(`⚠️  Webhook signature verification failed.`, err.message);
-        return response.sendStatus(400);
-      }
-    }
-    let subscription;
-    let status;
-    // Handle the event
-    switch (event.type) {
-      case "customer.subscription.trial_will_end":
-        subscription = event.data.object;
-        status = subscription.status;
-        console.log(`Subscription status is ${status}.`);
-        // Then define and call a method to handle the subscription trial ending.
-        // handleSubscriptionTrialEnding(subscription);
-        break;
-      case "customer.subscription.deleted":
-        subscription = event.data.object;
-        status = subscription.status;
-        console.log(`Subscription status is ${status}.`);
-        // Then define and call a method to handle the subscription deleted.
-        // handleSubscriptionDeleted(subscriptionDeleted);
-        break;
-      case "customer.subscription.created":
-        subscription = event.data.object;
-        status = subscription.status;
-        console.log(`Subscription status is ${status}.`);
-        // Then define and call a method to handle the subscription created.
-        // handleSubscriptionCreated(subscription);
-        break;
-      case "customer.subscription.updated":
-        subscription = event.data.object;
-        status = subscription.status;
-        console.log(`Subscription status is ${status}.`);
-        // Then define and call a method to handle the subscription update.
-        // handleSubscriptionUpdated(subscription);
-        break;
-      default:
-        // Unexpected event type
-        console.log(`Unhandled event type ${event.type}.`);
-    }
-    // Return a 200 response to acknowledge receipt of the event
-    response.send();
-  }
-);
-app.get("/success", (req, res) => {
-  res.sendFile(__dirname + "/payment-success.html");
-});
-app.get("/cancel", (req, res) => {
-  res.sendFile(__dirname + "/payment-cancel.html");
-});
+// app.post("/create-checkout-session", async (req, res) => {
+//   const prices = await stripe.prices.list({
+//     lookup_keys: [req.body.lookup_key],
+//     expand: ["data.product"],
+//   });
+//   const session = await stripe.checkout.sessions.create({
+//     billing_address_collection: "auto",
+//     payment_method_types: ["card"],
+//     line_items: [
+//       {
+//         price: prices.data[0].id,
+//         quantity: 1,
+//       },
+//     ],
+//     mode: "subscription",
+//     success_url: `${YOUR_DOMAIN}/success?session_id={CHECKOUT_SESSION_ID}`,
+//     cancel_url: `${YOUR_DOMAIN}/cancel`,
+//   });
+//   res.redirect(303, session.url);
+// });
+// app.post("/create-portal-session", async (req, res) => {
+//   const { session_id } = req.body;
+//   const checkoutSession = await stripe.checkout.sessions.retrieve(session_id);
+//   const returnUrl = YOUR_DOMAIN;
+//   const portalSession = await stripe.billingPortal.sessions.create({
+//     customer: checkoutSession.customer,
+//     return_url: returnUrl,
+//   });
+//   res.redirect(303, portalSession.url);
+// });
+// app.post(
+//   "/webhook",
+//   express.raw({ type: "application/json" }),
+//   (request, response) => {
+//     const event = request.body;
+//     const endpointSecret = "whsec_12345";
+//     if (endpointSecret) {
+//       // Get the signature sent by Stripe
+//       const signature = request.headers["stripe-signature"];
+//       try {
+//         event = stripe.webhooks.constructEvent(
+//           request.body,
+//           signature,
+//           endpointSecret
+//         );
+//       } catch (err) {
+//         console.log(`⚠️  Webhook signature verification failed.`, err.message);
+//         return response.sendStatus(400);
+//       }
+//     }
+//     let subscription;
+//     let status;
+//     // Handle the event
+//     switch (event.type) {
+//       case "customer.subscription.trial_will_end":
+//         subscription = event.data.object;
+//         status = subscription.status;
+//         console.log(`Subscription status is ${status}.`);
+//         // Then define and call a method to handle the subscription trial ending.
+//         // handleSubscriptionTrialEnding(subscription);
+//         break;
+//       case "customer.subscription.deleted":
+//         subscription = event.data.object;
+//         status = subscription.status;
+//         console.log(`Subscription status is ${status}.`);
+//         // Then define and call a method to handle the subscription deleted.
+//         // handleSubscriptionDeleted(subscriptionDeleted);
+//         break;
+//       case "customer.subscription.created":
+//         subscription = event.data.object;
+//         status = subscription.status;
+//         console.log(`Subscription status is ${status}.`);
+//         // Then define and call a method to handle the subscription created.
+//         // handleSubscriptionCreated(subscription);
+//         break;
+//       case "customer.subscription.updated":
+//         subscription = event.data.object;
+//         status = subscription.status;
+//         console.log(`Subscription status is ${status}.`);
+//         // Then define and call a method to handle the subscription update.
+//         // handleSubscriptionUpdated(subscription);
+//         break;
+//       default:
+//         // Unexpected event type
+//         console.log(`Unhandled event type ${event.type}.`);
+//     }
+//     // Return a 200 response to acknowledge receipt of the event
+//     response.send();
+//   }
+// );
+// app.get("/success", (req, res) => {
+//   res.sendFile(__dirname + "/payment-success.html");
+// });
+// app.get("/cancel", (req, res) => {
+//   res.sendFile(__dirname + "/payment-cancel.html");
+// });
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

@@ -52,6 +52,7 @@ const userSchema = new mongoose.Schema({
   userType: String,
   bio: String,
   ratings: [Number],
+  imageId: String,
 });
 
 module.exports = mongoose.model("User", userSchema);
