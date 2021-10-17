@@ -82,11 +82,11 @@ app.get(
   }
 );
 
-app.get("/fail", (req, res) => {
+app.get("/api/fail", (req, res) => {
   res.sendStatus(500);
 });
 
-app.post("/signup", async (req, res) => {
+app.post("/api/signup", async (req, res) => {
   const user = new User();
   // user.country = req.body.country;
   user.firstName = req.body.firstName;
@@ -138,7 +138,7 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.post("/signin", async (req, res) => {
+app.post("/api/signin", async (req, res) => {
   console.log("----");
   console.log(req.body);
   const user = await User.findOne({ email: req.body.email }).exec();
@@ -163,14 +163,14 @@ app.post("/signin", async (req, res) => {
   });
 });
 
-app.get("/signout", (req, res) => {
+app.get("/api/signout", (req, res) => {
   req.session = null;
   req.logout();
   res.status(200).send("/signin");
   // res.redirect("/signin");
 });
 
-app.post("/task", (req, res) => {
+app.post("/api/task", (req, res) => {
   const task = req.body;
   Task.insertMany([task], (err) => {
     if (err) {
@@ -182,7 +182,7 @@ app.post("/task", (req, res) => {
 });
 
 // Uploads base64 encoded image to Image collection and returns id
-app.post("/upload", (req, res) => {
+app.post("/api/upload", (req, res) => {
   const image = req.body;
   Image.insertMany([image], (err, data) => {
     if (err) {
@@ -193,7 +193,7 @@ app.post("/upload", (req, res) => {
   });
 });
 
-app.get("/task", (req, res) => {
+app.get("/api/task", (req, res) => {
   // todo - get current user id from session?
   console.log("[user]", req.user);
   const userId = req.query.userId;
@@ -241,7 +241,7 @@ app.get("/task", (req, res) => {
 // Adds current expert id to hiddenBy field in Task
 // NB: expert id will be stored in app context on login, EXPERT_ID variable for scaffolding only
 // todo - add login and store current user id
-app.post("/hidetask", (req, res) => {
+app.post("/api/hidetask", (req, res) => {
   const taskId = req.body.taskId;
   const userId = req.body.userId;
   Task.findOneAndUpdate(
@@ -258,7 +258,7 @@ app.post("/hidetask", (req, res) => {
     }
   );
 });
-app.put("/accepttask", (req, res) => {
+app.put("/api/accepttask", (req, res) => {
   const taskId = req.body.taskId;
   const expertId = req.body.expertId;
   Task.findOneAndUpdate(
@@ -275,7 +275,7 @@ app.put("/accepttask", (req, res) => {
     }
   );
 });
-app.put("/completetask", (req, res) => {
+app.put("/api/completetask", (req, res) => {
   console.log(req.body);
   const taskId = req.body.taskId;
   const finalCost = req.body.finalCost;
@@ -295,7 +295,7 @@ app.put("/completetask", (req, res) => {
 });
 
 // Retrieve image from Images collection
-app.get("/getimage", (req, res) => {
+app.get("/api/getimage", (req, res) => {
   const imageId = req.query.imageId;
   Image.findOne({ _id: imageId }, (err, result) => {
     if (err) {
@@ -307,7 +307,7 @@ app.get("/getimage", (req, res) => {
 });
 
 app
-  .route("/users")
+  .route("/api/users")
   // Get all user documents from collection
   .get(async function (req, res) {
     // const all = await User.find(findParams);
@@ -367,7 +367,7 @@ app
   });
 // Get expert document by id
 app
-  .route("/users/:id")
+  .route("/api/users/:id")
   .get(async function (req, res) {
     // const expert;
     User.findOne({ _id: req.params.id }, (err, user) => {
@@ -417,7 +417,7 @@ app
 
 // STRIPE
 // STRIPE PAYMENT
-app.post("/payment", (req, res) => {
+app.post("/api/payment", (req, res) => {
   console.log("[PAYMENT REQUEST BODY]", req.body);
   const { cost, title, token } = req.body;
   const idempotencyKey = uuid();

@@ -20,7 +20,7 @@ const SignIn = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:5100/signin", {
+    fetch("http://localhost:5100/api/signin", {
       method: "post",
       // credentials: "include",
       headers: {

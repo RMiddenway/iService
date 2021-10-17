@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useToasts } from 'react-toast-notifications';
-import { Button, Container } from 'semantic-ui-react';
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
+import { Button, Container } from "semantic-ui-react";
 
-import FormSection from '../components/form/FormSection';
-import LocationInput from '../components/form/LocationInput';
+import FormSection from "../components/form/FormSection";
+import LocationInput from "../components/form/LocationInput";
 
 // import PlacesInput from '../components/form/PlacesInput';
 
@@ -85,7 +85,7 @@ const TaskForm = () => {
     setForm({ ...form, ...input });
   };
   const submitForm = (e) => {
-    fetch("http://localhost:5100/task", {
+    fetch("http://localhost:5100/api/task", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

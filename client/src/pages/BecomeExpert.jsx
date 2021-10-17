@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { useToasts } from 'react-toast-notifications';
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 
-import { setUserType } from '../auth/authSlice';
+import { setUserType } from "../auth/authSlice";
 
 const BecomeExpert = () => {
   // const userId = useSelector((state) => state.auth.userId);
@@ -40,7 +40,7 @@ const BecomeExpert = () => {
     // headers.append("Access-Control-Allow-Origin", "http://localhost:3000");
     // headers.append("Access-Control-Allow-Credentials", "true");
 
-    fetch(`http://localhost:5100/users/${userId}`, {
+    fetch(`http://localhost:5100/api/users/${userId}`, {
       method: "put",
       // headers: headers,
       headers: {

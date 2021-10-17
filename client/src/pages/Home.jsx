@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react';
-import { Grid, Header } from 'semantic-ui-react';
+import { useEffect, useState } from "react";
+import { Grid, Header } from "semantic-ui-react";
 
-import CardContainer from '../components/CardContainer';
-import ExpertCard from '../components/ExpertCard';
-import HeaderImage from '../components/HeaderImage';
-import NewsletterSignUp from '../components/NewsletterSignUp';
-import SocialMedia from '../components/SocialMedia';
+import CardContainer from "../components/CardContainer";
+import ExpertCard from "../components/ExpertCard";
+import HeaderImage from "../components/HeaderImage";
+import NewsletterSignUp from "../components/NewsletterSignUp";
+import SocialMedia from "../components/SocialMedia";
 
 const HomePage = () => {
   const [experts, setExperts] = useState([]);
 
   const getExperts = () => {
-    fetch("http://localhost:5100/users?expert=true&count=8&sortby=rating", {
+    fetch("http://localhost:5100/api/users?expert=true&count=8&sortby=rating", {
       method: "get",
     })
       .then((response) => {

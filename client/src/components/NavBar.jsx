@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useRouteMatch } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
-import { Icon, Menu } from 'semantic-ui-react';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useRouteMatch } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { Icon, Menu } from "semantic-ui-react";
 
-import { setSignedOut } from '../auth/authSlice';
+import { setSignedOut } from "../auth/authSlice";
 
 const NavBar = () => {
   // const isSignedIn = useSelector((state) => state.auth.isSignedIn);
@@ -24,7 +24,7 @@ const NavBar = () => {
   };
 
   const handleSignOut = () => {
-    fetch("http://localhost:5100/signout", {
+    fetch("http://localhost:5100/api/signout", {
       method: "get",
     })
       .then((response) => {
