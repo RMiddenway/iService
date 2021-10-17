@@ -539,7 +539,12 @@ app.get("/cancel", (req, res) => {
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
-    res.sendFile(path.result(__dirname, "client", "build", "index.html"));
+    // res.sendFile(path.result(__dirname, "client", "build", "index.html"));
+    let url = path.result(__dirname, "client", "build", "index.html");
+    if (!url.startsWith("/app/"))
+      // we're on local windows
+      url = url.substring(1);
+    res.sendFile(url);
   });
 }
 
