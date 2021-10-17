@@ -58,6 +58,9 @@ const SignIn = () => {
       },
     });
     const data = await res.json();
+    console.log("====================================");
+    console.log("[Received user]", data);
+    console.log("====================================");
     // store returned user somehow
   };
 

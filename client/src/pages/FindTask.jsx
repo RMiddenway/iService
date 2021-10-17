@@ -100,7 +100,12 @@ const FindTask = () => {
       });
   };
 
-  const onMarkerMouseover = (taskIId) => {};
+  const onMarkerMouseover = (taskId) => {
+    console.log("====================================");
+    console.log(taskId);
+    console.log("====================================");
+    setHighlightedTaskId(taskId);
+  };
   // const onMarkerClick = (taskId) => { };
 
   return (
