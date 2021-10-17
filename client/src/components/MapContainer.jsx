@@ -29,6 +29,8 @@ const MapContainer = (props) => {
           name={task.taskTitle}
           // todo - replace with task coordinates
           position={{ lat: task.lat, lng: task.lng }}
+          onClick={(e) => props.onMarkerClick(task._id)}
+          onMouseover={(e) => props.onMarkerMouseover(task._id)}
           // icon={{
           //   url: "/path/to/custom_icon.png",
           //   anchor: new props.google.maps.Point(32, 32),

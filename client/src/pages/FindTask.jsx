@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
-import { Button, Form, Grid, Image, Input, Modal } from "semantic-ui-react";
+import { useEffect, useState } from 'react';
+import { Button, Form, Grid, Image, Input, Modal } from 'semantic-ui-react';
 
-import CardContainer from "../components/CardContainer";
-import TaskMap from "../components/TaskMap";
+import CardContainer from '../components/CardContainer';
+import TaskMap from '../components/TaskMap';
 
 const FindTask = () => {
   const userId = localStorage.getItem("USER_ID");
   const [tasks, setTasks] = useState([]);
   const [filters, setFilters] = useState({ status: "open" });
   const [activeTask, setActiveTask] = useState();
+  const [highlightedTaskId, setHighlightedTaskId] = useState();
 
   const onChange = (label, e) => {
     if (e.target.value === "") {
@@ -99,6 +100,9 @@ const FindTask = () => {
       });
   };
 
+  const onMarkerMouseover = (taskIId) => {};
+  // const onMarkerClick = (taskId) => { };
+
   return (
     <>
       <Form>
@@ -182,7 +186,11 @@ const FindTask = () => {
             </Modal>
           </div>
           <div className="col">
-            <TaskMap tasks={tasks} />
+            <TaskMap
+              tasks={tasks}
+              onMarkerClick={handleClick}
+              onMarkerMouseover={onMarkerMouseover}
+            />
           </div>
         </div>
       </div>

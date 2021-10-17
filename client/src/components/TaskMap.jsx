@@ -23,6 +23,8 @@ const TaskMap = (props) => {
           currentLocation={lastLocation}
           zoom={4}
           tasks={props.tasks}
+          onMarkerClick={props.onMarkerClick}
+          onMarkerMouseover={props.onMarkerMouseover}
         ></MapContainer>
         ;
       </div>
