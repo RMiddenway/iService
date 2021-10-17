@@ -22,8 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      <div>Hello this is reaxt</div>
-      {/* <Provider store={store}>
+      <Provider store={store}>
         <ToastProvider>
           <Router>
             <NavBar />
@@ -40,7 +39,7 @@ function App() {
             </Switch>
           </Router>
         </ToastProvider>
-      </Provider> */}
+      </Provider>
     </div>
   );
 }
