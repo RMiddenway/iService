@@ -91,7 +91,7 @@ const CardContainer = ({
       {cards.length === 0 ? (
         <div className="m-5">No {cardType} found</div>
       ) : (
-        <Card.Group centered>
+        <Card.Group centered className="overflow-auto h-75">
           {cards.map((card) => {
             if (cardType === "task") return getTaskCard(card);
             else if (cardType === "expert") return getExpertCard(card);
