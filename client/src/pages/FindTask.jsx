@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Form, Grid, Image, Input, Modal } from 'semantic-ui-react';
+import { Button, Form, Image, Input, Modal } from 'semantic-ui-react';
 
 import CardContainer from '../components/CardContainer';
 import TaskMap from '../components/TaskMap';
@@ -26,12 +26,8 @@ const FindTask = () => {
   };
 
   const getTasks = (queryParams) => {
-    console.log("====================================");
-    console.log(userId);
-    console.log("====================================");
     fetch(`/api/task?${queryParams}&userId=${userId}`, {
       method: "get",
-      // body: JSON.stringify({ userId: userId }),
     })
       .then((response) => response.json())
       .then((data) => setTasks(data))

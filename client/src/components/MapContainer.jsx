@@ -2,11 +2,7 @@ import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import React, { useState } from 'react';
 
 const MapContainer = (props) => {
-  // const [currentLocation, setCurrentLocation] = useState({ lat: 0, lng: 0 });
-  const arr = [3, 4];
-  // arr.map()
   const containerStyle = {
-    // position: "relative",
     width: "50%",
     height: "50%",
   };

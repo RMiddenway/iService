@@ -12,9 +12,6 @@ const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const { addToast } = useToasts();
   const history = useHistory();
-  // const handleSignUpClick = (e) => {
-  //   history.push("/signup");
-  // };
   const onChange = (e) => {
     e.preventDefault();
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -37,7 +34,6 @@ const SignIn = () => {
           appearance: "success",
           autoDismiss: true,
         });
-        // localStorage.setItem("IS_SIGNED_IN", "true");
         dispatch(setSignedIn(data._id));
         dispatch(setUserType(data.userType));
         history.push("/");
@@ -63,7 +59,6 @@ const SignIn = () => {
       appearance: "success",
       autoDismiss: true,
     });
-    // localStorage.setItem("IS_SIGNED_IN", "true");
     dispatch(setSignedIn(data._id));
     if (data.userType) {
       dispatch(setUserType(data.userType));
@@ -113,16 +108,7 @@ const SignIn = () => {
                   style={{ whiteSpace: "pre-line" }}
                   id="error-text"
                 ></p>
-                {/* <div className="row center">
-                  <label>
-                    <input
-                      name="remember"
-                      type="checkbox"
-                      className="form-control"
-                    />
-                    <span>Remember Me</span>
-                  </label>
-                </div> */}
+
                 <div className="form-group row">
                   <div className="d-flex justify-content-center">
                     <Button

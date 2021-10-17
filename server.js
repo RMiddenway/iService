@@ -35,12 +35,7 @@ const stripe = require("stripe")(
 // GENERAL INSTANTIATION
 const app = express();
 app.use(express.urlencoded({ limit: "25mb", extended: true }));
-// app.use(bodyParser.urlencoded({ extended: true }));
-// const corsOptions = {
-//   origin: "*",
-//   credentials: true, //access-control-allow-credentials:true
-//   optionSuccessStatus: 200,
-// };
+
 app.use(cors());
 app.use(express.json({ limit: "25mb" }));
 app.use(express.static("public"));
@@ -58,8 +53,6 @@ const remoteDB =
   "mongodb+srv://admin-roger:password2020@cluster0.knut4.mongodb.net/uninewsletterDB?retryWrites=true&w=majority";
 // const YOUR_DOMAIN = "http://localhost:5100"; // todo - change when switching between local and heroku
 const YOUR_DOMAIN = "https://iservice313.herokuapp.com/";
-// todo - access logged in expert id from context
-// const EXPERT_ID = "613a0e800cb73968bd650054";
 
 // DATABASE CONNEECTION
 mongoose.connect(remoteDB, {
@@ -75,11 +68,7 @@ app.post("/api/v1/auth/google", async (req, res) => {
     audience: process.env.CLIENT_ID,
   });
   const { name, email, picture } = ticket.getPayload();
-  // const user = await User.upsert({
-  //   where: { email: email },
-  //   update: { name, picture },
-  //   create: { name, email, picture },
-  // });
+
   const nameArray = name.split(" ");
   const firstName = nameArray[0];
   const lastName = nameArray.length - 1;
@@ -90,27 +79,8 @@ app.post("/api/v1/auth/google", async (req, res) => {
   );
   req.session.userId = user.id;
 
-  // res.status(201);
   res.status(201).send({ _id: user._id, userType: user.userType });
-  // res.json(user);
 });
-// app.get(
-//   "/auth/google",
-//   passport.authenticate("google", {
-//     scope: ["profile", "email"],
-//   })
-// );
-
-// app.get(
-//   "/auth/google/callback",
-//   passport.authenticate("google", {
-//     failureRedirect: "/fail",
-//     failureFlash: true,
-//   }),
-//   (req, res) => {
-//     res.redirect("/home");
-//   }
-// );
 
 app.get("/api/fail", (req, res) => {
   res.sendStatus(500);
@@ -118,20 +88,10 @@ app.get("/api/fail", (req, res) => {
 
 app.post("/api/signup", async (req, res) => {
   const user = new User();
-  // user.country = req.body.country;
   user.firstName = req.body.firstName;
   user.lastName = req.body.lastName;
   user.email = req.body.email;
   user.password = req.body.password;
-  // customer.confirmPassword = req.body.confirmPassword;
-  // user.addressFirst = req.body.addressFirst;
-  // user.addressSecond = req.body.addressSecond;
-  // user.city = req.body.city;
-  // user.region = req.body.region;
-  // user.postcode = req.body.postCode;
-  // user.phone = req.body.phone;
-
-  console.log(user);
 
   let error = user.validateSync();
   console.log(error);
@@ -142,10 +102,6 @@ app.post("/api/signup", async (req, res) => {
       errorMessages.push(error.errors[k].message);
     }
   }
-  // Schema validation can't compare two fields, so compare manually here
-  // if (req.body.password !== req.body.confirmPassword) {
-  //   errorMessages.push("Password and password confirm must match.");
-  // }
 
   // If backend validation finds error, send error message
   if (errorMessages.length) {
@@ -197,7 +153,6 @@ app.get("/api/signout", (req, res) => {
   req.session = null;
   req.logout();
   res.status(200).send("/signin");
-  // res.redirect("/signin");
 });
 
 app.post("/api/task", (req, res) => {
@@ -272,8 +227,7 @@ app.get("/api/task", (req, res) => {
 });
 
 // Adds current expert id to hiddenBy field in Task
-// NB: expert id will be stored in app context on login, EXPERT_ID variable for scaffolding only
-// todo - add login and store current user id
+
 app.post("/api/hidetask", (req, res) => {
   const taskId = req.body.taskId;
   const userId = req.body.userId;
@@ -282,10 +236,8 @@ app.post("/api/hidetask", (req, res) => {
     { $push: { hiddenBy: userId } },
     (err, result) => {
       if (err) {
-        // console.log("HIDE TASK ERROR: ", err);
         res.send(err);
       } else {
-        // console.log("TASK HIDDEN");
         res.sendStatus(200);
       }
     }
@@ -299,10 +251,8 @@ app.put("/api/accepttask", (req, res) => {
     { expertId: expertId, status: "accepted" },
     (err, result) => {
       if (err) {
-        // console.log("HIDE TASK ERROR: ", err);
         res.send(err);
       } else {
-        // console.log("TASK HIDDEN");
         res.sendStatus(200);
       }
     }
@@ -317,10 +267,8 @@ app.put("/api/completetask", (req, res) => {
     { finalCost: finalCost, status: "completed" },
     (err, result) => {
       if (err) {
-        // console.log("HIDE TASK ERROR: ", err);
         res.send(err);
       } else {
-        console.log("TASK UPDATED", result);
         res.sendStatus(200);
       }
     }
@@ -343,8 +291,6 @@ app
   .route("/api/users")
   // Get all user documents from collection
   .get(async function (req, res) {
-    // const all = await User.find(findParams);
-    // res.send(all);
     console.log(req.query);
     // Combine query parameters from request
     let findParams = {};
@@ -369,16 +315,6 @@ app
   .post(async function (req, res) {
     console.log(req.body);
     const user = new User({ ...req.body });
-
-    // user.firstName = req.body.firstName;
-    // user.lastName = req.body.lastName;
-    // user.email = req.body.email;
-    // user.password = await hashPassword.hashPassword(req.body.password);
-    // user.addressFirst = req.body.addressFirst;
-    // user.city = req.body.city;
-    // user.region = req.body.region;
-    // user.postcode = req.body.postcode;
-    // user.phone = req.body.phone;
 
     User.insertMany([user], (err) => {
       if (err) {
@@ -411,17 +347,7 @@ app
       } else res.send(user);
     });
   })
-  // Replace entire expert document
-  // .put(async function (req, res) {
-  //   req.body.password = await hashPassword.hashPassword(req.body.password);
-  //   User.updateOne({ _id: req.params.id }, { ...req.body }, (err) => {
-  //     if (err) {
-  //       res.status(500).send(err);
-  //     } else {
-  //       res.sendStatus(200);
-  //     }
-  //   });
-  // })
+
   // Update only given fields of expert document
   .put(async function (req, res) {
     if (req.body.password) {
@@ -472,111 +398,11 @@ app.post("/api/payment", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-// app.post("/create-checkout-session", async (req, res) => {
-//   const prices = await stripe.prices.list({
-//     lookup_keys: [req.body.lookup_key],
-//     expand: ["data.product"],
-//   });
-//   const session = await stripe.checkout.sessions.create({
-//     billing_address_collection: "auto",
-//     payment_method_types: ["card"],
-//     line_items: [
-//       {
-//         price: prices.data[0].id,
-//         quantity: 1,
-//       },
-//     ],
-//     mode: "subscription",
-//     success_url: `${YOUR_DOMAIN}/success?session_id={CHECKOUT_SESSION_ID}`,
-//     cancel_url: `${YOUR_DOMAIN}/cancel`,
-//   });
-//   res.redirect(303, session.url);
-// });
-// app.post("/create-portal-session", async (req, res) => {
-//   const { session_id } = req.body;
-//   const checkoutSession = await stripe.checkout.sessions.retrieve(session_id);
-//   const returnUrl = YOUR_DOMAIN;
-//   const portalSession = await stripe.billingPortal.sessions.create({
-//     customer: checkoutSession.customer,
-//     return_url: returnUrl,
-//   });
-//   res.redirect(303, portalSession.url);
-// });
-// app.post(
-//   "/webhook",
-//   express.raw({ type: "application/json" }),
-//   (request, response) => {
-//     const event = request.body;
-//     const endpointSecret = "whsec_12345";
-//     if (endpointSecret) {
-//       // Get the signature sent by Stripe
-//       const signature = request.headers["stripe-signature"];
-//       try {
-//         event = stripe.webhooks.constructEvent(
-//           request.body,
-//           signature,
-//           endpointSecret
-//         );
-//       } catch (err) {
-//         console.log(`⚠️  Webhook signature verification failed.`, err.message);
-//         return response.sendStatus(400);
-//       }
-//     }
-//     let subscription;
-//     let status;
-//     // Handle the event
-//     switch (event.type) {
-//       case "customer.subscription.trial_will_end":
-//         subscription = event.data.object;
-//         status = subscription.status;
-//         console.log(`Subscription status is ${status}.`);
-//         // Then define and call a method to handle the subscription trial ending.
-//         // handleSubscriptionTrialEnding(subscription);
-//         break;
-//       case "customer.subscription.deleted":
-//         subscription = event.data.object;
-//         status = subscription.status;
-//         console.log(`Subscription status is ${status}.`);
-//         // Then define and call a method to handle the subscription deleted.
-//         // handleSubscriptionDeleted(subscriptionDeleted);
-//         break;
-//       case "customer.subscription.created":
-//         subscription = event.data.object;
-//         status = subscription.status;
-//         console.log(`Subscription status is ${status}.`);
-//         // Then define and call a method to handle the subscription created.
-//         // handleSubscriptionCreated(subscription);
-//         break;
-//       case "customer.subscription.updated":
-//         subscription = event.data.object;
-//         status = subscription.status;
-//         console.log(`Subscription status is ${status}.`);
-//         // Then define and call a method to handle the subscription update.
-//         // handleSubscriptionUpdated(subscription);
-//         break;
-//       default:
-//         // Unexpected event type
-//         console.log(`Unhandled event type ${event.type}.`);
-//     }
-//     // Return a 200 response to acknowledge receipt of the event
-//     response.send();
-//   }
-// );
-// app.get("/success", (req, res) => {
-//   res.sendFile(__dirname + "/payment-success.html");
-// });
-// app.get("/cancel", (req, res) => {
-//   res.sendFile(__dirname + "/payment-cancel.html");
-// });
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
-    // res.sendFile(path.result(__dirname, "client", "build", "index.html"));
     let url = path.result(__dirname, "client", "build", "index.html");
-    if (!url.startsWith("/app/"))
-      // we're on local windows
-      url = url.substring(1);
+    if (!url.startsWith("/app/")) url = url.substring(1);
     res.sendFile(url);
   });
 }
@@ -585,7 +411,6 @@ let PORT = process.env.PORT;
 if (PORT == null || PORT == "") {
   port = 5100;
 }
-// todo - pass port number to fetch calls in ImageUpload and TaskForm when hosting in heroku
 app.listen(PORT, (req, res) => {
   console.log("SERVER UP");
 });

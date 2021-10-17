@@ -3,7 +3,6 @@ import { Card, Image, Rating, Transition } from 'semantic-ui-react';
 
 const ExpertCard = ({ firstName, lastName, description, rating, imgURL }) => {
   const [visible, setVisible] = useState(false);
-  const [tempImg, setTempImage] = useState();
 
   useEffect(() => {
     setVisible(true);
@@ -14,7 +13,6 @@ const ExpertCard = ({ firstName, lastName, description, rating, imgURL }) => {
       <Transition animation="pulse" duration={500} visible={visible}>
         <Card className="bg-light">
           <Image
-            // src={imgURL ? imgURL : "https://i.pravatar.cc/300?sig=123"}
             src={
               imgURL
                 ? imgURL

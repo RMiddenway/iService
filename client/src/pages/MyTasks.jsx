@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Header, Modal, Button, Image } from "semantic-ui-react";
+import { useEffect, useState } from 'react';
+import { Header, Image, Modal } from 'semantic-ui-react';
 
-import CardContainer from "../components/CardContainer";
-import Checkout from "../components/Checkout";
+import CardContainer from '../components/CardContainer';
+import Checkout from '../components/Checkout';
 
 const MyTasks = () => {
   const userId = localStorage.getItem("USER_ID");
@@ -12,9 +12,7 @@ const MyTasks = () => {
 
   const getTasks = () => {
     const queryParams = new URLSearchParams({ postedBy: userId }).toString();
-    console.log("====================================");
-    console.log(queryParams);
-    console.log("====================================");
+
     fetch(`/api/task?${queryParams}`, {
       method: "get",
       // body: JSON.stringify({ userId: userId }),
@@ -127,10 +125,6 @@ const MyTasks = () => {
                 cost={activeTask?.finalCost}
                 title={activeTask?.taskTitle}
               />
-
-              {/* <Button color="green" onClick={(e) => handleSubmit(e)}>
-                Mark as Completed
-              </Button> */}
             </div>
           </Modal.Actions>
         </Modal>

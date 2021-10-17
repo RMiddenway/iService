@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 
 import CardContainer from '../components/CardContainer';
-import ExpertCard from '../components/ExpertCard';
 import HeaderImage from '../components/HeaderImage';
 import NewsletterSignUp from '../components/NewsletterSignUp';
 import SocialMedia from '../components/SocialMedia';

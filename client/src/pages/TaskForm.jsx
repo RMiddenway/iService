@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { useToasts } from "react-toast-notifications";
-import { Button, Container } from "semantic-ui-react";
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
+import { Button, Container } from 'semantic-ui-react';
 
-import FormSection from "../components/form/FormSection";
-import LocationInput from "../components/form/LocationInput";
-
-// import PlacesInput from '../components/form/PlacesInput';
+import FormSection from '../components/form/FormSection';
 
 const TaskForm = () => {
   const initialForm = {
@@ -79,8 +76,6 @@ const TaskForm = () => {
 
   const [fields, setFields] = useState(initialFields);
 
-  // const onChange = (inputKey, e) => {
-  // setForm({ ...form, [inputKey]: e.target.value });
   const onChange = (input) => {
     setForm({ ...form, ...input });
   };

@@ -9,8 +9,3 @@ export default configureStore({
     location: locationReducer,
   }),
 });
-
-// export default configureStore({
-//   reducer: { auth: authReducer },
-//   // reducer: { location: locationReducer },
-// });

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Header, Button, Modal, Image, Input } from "semantic-ui-react";
+import { useEffect, useState } from 'react';
+import { Button, Header, Image, Modal } from 'semantic-ui-react';
 
-import CardContainer from "../components/CardContainer";
+import CardContainer from '../components/CardContainer';
 
 const ExpertArea = () => {
   const userId = localStorage.getItem("USER_ID");
@@ -12,12 +12,9 @@ const ExpertArea = () => {
 
   const getTasks = () => {
     const queryParams = new URLSearchParams({ expertId: userId }).toString();
-    console.log("====================================");
-    console.log(queryParams);
-    console.log("====================================");
+
     fetch(`/api/task?${queryParams}`, {
       method: "get",
-      // body: JSON.stringify({ userId: userId }),
     })
       .then((response) => response.json())
       .then((data) => setTasks(data))
@@ -152,12 +149,7 @@ const ExpertArea = () => {
 
           <Modal.Actions className="mb-2">
             <div className="d-flex justify-content-between">
-              <Button
-                color="red"
-                // onClick={(e) => handleHideTask(activeTask._id)}
-              >
-                Cancel Task
-              </Button>
+              <Button color="red">Cancel Task</Button>
               <Button color="green" onClick={(e) => handleSubmit(e)}>
                 Mark as Completed
               </Button>

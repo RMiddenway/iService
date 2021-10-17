@@ -19,8 +19,6 @@ import TaskForm from './pages/TaskForm';
 import store from './store';
 
 function App() {
-  // const isSignedIn = () => localStorage.getItem("IS_SIGNED_IN") === "true";
-
   return (
     <div className="App">
       <Provider store={store}>

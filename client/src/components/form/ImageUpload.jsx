@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Button } from "semantic-ui-react";
+import { useState } from 'react';
 
 const ImageUpload = (props) => {
   const [imagePost, setImagePost] = useState("");
