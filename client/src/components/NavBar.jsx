@@ -1,22 +1,17 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useRouteMatch } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import { Icon, Menu } from "semantic-ui-react";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useRouteMatch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { Icon, Menu } from 'semantic-ui-react';
 
-import { setSignedOut } from "../auth/authSlice";
+import { setSignedOut } from '../auth/authSlice';
 
 const NavBar = () => {
-  // const isSignedIn = useSelector((state) => state.auth.isSignedIn);
   const isSignedIn = localStorage.getItem("IS_SIGNED_IN") === "true";
   const userType = localStorage.getItem("USER_TYPE");
   const dispatch = useDispatch();
   const history = useHistory();
   const [activeItem, setActiveItem] = useState("home");
-
-  // const isSignedIn = () => {
-  //   return localStorage.getItem("IS_SIGNED_IN") === "true";
-  // };
 
   const handleItemClick = (e) => {
     console.log(e.target.id);
@@ -29,7 +24,6 @@ const NavBar = () => {
     })
       .then((response) => {
         if (response.status === 200) {
-          // localStorage.setItem("IS_SIGNED_IN", "false");
           dispatch(setSignedOut());
         }
         return response.text();
@@ -98,7 +92,7 @@ const NavBar = () => {
       ) : (
         ""
       )}
-      {/* <Link to="/findtasks">Find</Link> */}
+
       {userType === "expert" ? (
         <Menu.Item
           as={Link}
@@ -118,7 +112,6 @@ const NavBar = () => {
         <Menu.Item
           as={Link}
           to={`${match.url}mytasks`}
-          // to="/findtasks"
           id="myTasks"
           active={activeItem === "myTasks"}
           onClick={(e) => handleItemClick(e)}
@@ -140,10 +133,8 @@ const NavBar = () => {
       </Menu.Item>
       {isSignedIn ? (
         <Menu.Item
-          // as={Link}
           position="right"
           id="signOut"
-          // to={`${match.url}signup`}
           active={activeItem === "signOut"}
           onClick={(e) => handleSignOut()}
         >

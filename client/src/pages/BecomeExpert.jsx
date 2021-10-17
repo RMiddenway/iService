@@ -1,16 +1,14 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { useToasts } from "react-toast-notifications";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 
-import { setUserType } from "../auth/authSlice";
+import { setUserType } from '../auth/authSlice';
 
 const BecomeExpert = () => {
-  // const userId = useSelector((state) => state.auth.userId);
   const dispatch = useDispatch();
   const userId = localStorage.getItem("USER_ID");
   console.log(userId);
-  // const isSignedIn = localStorage.getItem("IS_SIGNED_IN") === "true";
   const { addToast } = useToasts();
   const history = useHistory();
   const [form, setForm] = useState({

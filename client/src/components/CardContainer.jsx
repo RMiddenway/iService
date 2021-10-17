@@ -59,9 +59,6 @@ const CardContainer = ({
   ];
 
   const getTaskCard = (card) => {
-    // console.log("====================================");
-    // console.log("task card", card);
-    // console.log("====================================");
     return (
       <TaskCard
         key={card._id}
@@ -78,9 +75,6 @@ const CardContainer = ({
   };
 
   const getExpertCard = (card) => {
-    // console.log("====================================");
-    // console.log("expert card", card);
-    // console.log("====================================");
     return (
       <ExpertCard
         key={card._id}
@@ -88,13 +82,6 @@ const CardContainer = ({
         lastName={card.lastName}
         description={card.bio}
         rating={card.rating}
-
-        // title={card.taskTitle}
-        // description={card.taskDescription}
-        // suburb={card.suburb}
-        // date={card.taskDate?.substring(0, 10)}
-        // handleHideTask={handleHideTask}
-        // handleClick={handleClick}
       />
     );
   };

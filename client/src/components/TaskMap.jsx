@@ -7,12 +7,11 @@ import MapContainer from './MapContainer';
 const TaskMap = (props) => {
   const lastLocation = useSelector((state) => state.location.lastLocation);
   const dispatch = useDispatch();
-  // const [currentLocation, setCurrentLocation] = useState({ lastLocation });
+
   navigator?.geolocation.getCurrentPosition(
     ({ coords: { latitude: lat, longitude: lng } }) => {
       const pos = { lat, lng };
       dispatch(setLastLocation(pos));
-      // setCurrentLocation(pos);
     }
   );
   console.log(lastLocation);

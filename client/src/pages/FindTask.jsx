@@ -15,8 +15,6 @@ const FindTask = () => {
     if (e.target.value === "") {
     }
     setFilters({ ...filters, [label]: e.target.value });
-    // todo ----- add tasks to expert area, add task form for final cost and complete
-    // todo - --- add payment area for completed tasks
   };
 
   const applyFilters = () => {
@@ -40,7 +38,7 @@ const FindTask = () => {
   };
 
   useEffect(() => {
-    getTasks();
+    applyFilters();
   }, []);
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -101,15 +99,11 @@ const FindTask = () => {
   };
 
   const onMarkerMouseover = (taskId) => {
-    console.log("====================================");
-    console.log(taskId);
-    console.log("====================================");
     setHighlightedTaskId(taskId);
   };
   const onMarkerMouseout = () => {
     setHighlightedTaskId("");
   };
-  // const onMarkerClick = (taskId) => { };
 
   return (
     <>

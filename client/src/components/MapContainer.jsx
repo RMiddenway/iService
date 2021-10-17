@@ -19,11 +19,6 @@ const MapContainer = (props) => {
       center={props.currentLocation}
       containerStyle={containerStyle}
     >
-      {/* <Marker onClick={this.onMarkerClick} name={"Current location"} /> */}
-
-      {/* <InfoWindow onClose={this.onInfoWindowClose}> */}
-      {/* <div><h1>{this.state.selectedPlace.name}</h1></div> */}
-      {/* </InfoWindow> */}
       {props.tasks.map((task) => (
         <Marker
           name={task.taskTitle}
@@ -32,12 +27,6 @@ const MapContainer = (props) => {
           onClick={(e) => props.onMarkerClick(task._id)}
           onMouseover={(e) => props.onMarkerMouseover(task._id)}
           onMouseout={(e) => props.onMarkerMouseout()}
-
-          // icon={{
-          //   url: "/path/to/custom_icon.png",
-          //   anchor: new props.google.maps.Point(32, 32),
-          //   scaledSize: new props.google.maps.Size(64, 64),
-          // }}
         />
       ))}
     </Map>

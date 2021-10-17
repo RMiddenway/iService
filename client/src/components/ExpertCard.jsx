@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Icon, Image, Rating, Reveal, Transition } from 'semantic-ui-react';
+import { Card, Image, Rating, Transition } from 'semantic-ui-react';
 
 const ExpertCard = ({ firstName, lastName, description, rating, imgURL }) => {
   const [visible, setVisible] = useState(false);

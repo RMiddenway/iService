@@ -13,7 +13,6 @@ export const locationSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { setLastLocation } = locationSlice.actions;
 
 export default locationSlice.reducer;
