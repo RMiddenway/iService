@@ -75,15 +75,24 @@ app.post("/api/v1/auth/google", async (req, res) => {
     audience: process.env.CLIENT_ID,
   });
   const { name, email, picture } = ticket.getPayload();
-  const user = await User.upsert({
-    where: { email: email },
-    update: { name, picture },
-    create: { name, email, picture },
-  });
+  // const user = await User.upsert({
+  //   where: { email: email },
+  //   update: { name, picture },
+  //   create: { name, email, picture },
+  // });
+  const nameArray = name.split(" ");
+  const firstName = nameArray[0];
+  const lastName = nameArray.length - 1;
+  const user = await User.findOneAndUpdate(
+    { email: email },
+    { firstName: firstName, lastName: lastName },
+    { new: true, upsert: true }
+  );
   req.session.userId = user.id;
 
-  res.status(201);
-  res.json(user);
+  // res.status(201);
+  res.status(201).send({ _id: user._id, userType: user.userType });
+  // res.json(user);
 });
 // app.get(
 //   "/auth/google",
