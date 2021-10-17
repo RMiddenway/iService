@@ -29,7 +29,7 @@ const FindTask = () => {
     console.log("====================================");
     console.log(userId);
     console.log("====================================");
-    fetch(`/api/task?${queryParams}&${userId}`, {
+    fetch(`/api/task?${queryParams}&expertid=${userId}`, {
       method: "get",
       // body: JSON.stringify({ userId: userId }),
     })
