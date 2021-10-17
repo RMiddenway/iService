@@ -58,9 +58,18 @@ const SignIn = () => {
       },
     });
     const data = await res.json();
-    console.log("====================================");
-    console.log("[Received user]", data);
-    console.log("====================================");
+    console.log(data);
+    addToast("Logged In Successfully!", {
+      appearance: "success",
+      autoDismiss: true,
+    });
+    // localStorage.setItem("IS_SIGNED_IN", "true");
+    dispatch(setSignedIn(data._id));
+    if (data.userType) {
+      dispatch(setUserType(data.userType));
+    }
+
+    history.push("/");
     // store returned user somehow
   };
 

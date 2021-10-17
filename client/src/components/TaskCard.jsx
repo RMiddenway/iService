@@ -11,13 +11,18 @@ const TaskCard = ({
 }) => {
   return (
     <Card
-      className={isHighlighted ? "bg-info" : "bg-light"}
+      className={isHighlighted ? "bg-white" : "bg-light"}
       raised
       onClick={(e) => handleClick(taskId)}
     >
       <Card.Content>
         <div>
-          <Card.Header as="h3">{title}</Card.Header>
+          <Card.Header
+            as="h3"
+            className={isHighlighted ? "font-weight-bold color-teal" : ""}
+          >
+            {title}
+          </Card.Header>
         </div>
       </Card.Content>
       <Card.Content>

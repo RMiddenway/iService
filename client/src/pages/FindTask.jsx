@@ -106,6 +106,9 @@ const FindTask = () => {
     console.log("====================================");
     setHighlightedTaskId(taskId);
   };
+  const onMarkerMouseout = () => {
+    setHighlightedTaskId("");
+  };
   // const onMarkerClick = (taskId) => { };
 
   return (
@@ -196,6 +199,7 @@ const FindTask = () => {
               tasks={tasks}
               onMarkerClick={handleClick}
               onMarkerMouseover={onMarkerMouseover}
+              onMarkerMouseout={onMarkerMouseout}
             />
           </div>
         </div>

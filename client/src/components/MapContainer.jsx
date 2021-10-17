@@ -31,6 +31,8 @@ const MapContainer = (props) => {
           position={{ lat: task.lat, lng: task.lng }}
           onClick={(e) => props.onMarkerClick(task._id)}
           onMouseover={(e) => props.onMarkerMouseover(task._id)}
+          onMouseout={(e) => props.onMarkerMouseout()}
+
           // icon={{
           //   url: "/path/to/custom_icon.png",
           //   anchor: new props.google.maps.Point(32, 32),

@@ -25,6 +25,7 @@ const TaskMap = (props) => {
           tasks={props.tasks}
           onMarkerClick={props.onMarkerClick}
           onMarkerMouseover={props.onMarkerMouseover}
+          onMarkerMouseout={props.onMarkerMouseout}
         ></MapContainer>
         ;
       </div>
