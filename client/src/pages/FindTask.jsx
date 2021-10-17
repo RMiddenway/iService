@@ -92,7 +92,7 @@ const FindTask = () => {
     })
       .then((response) => {
         if (response.status === 200) {
-          getTasks();
+          applyFilters();
           setModalOpen(false);
         }
       })
