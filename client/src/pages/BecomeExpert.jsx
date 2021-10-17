@@ -28,19 +28,10 @@ const BecomeExpert = () => {
   };
 
   const submit = (e) => {
-    // console.log("====================================");
-    // console.log(form);
-    // console.log("====================================");
     e.preventDefault();
-
-    // let headers = new Headers();
-    // headers.append("Content-Type", "application/json");
-    // headers.append("Access-Control-Allow-Origin", "http://localhost:3000");
-    // headers.append("Access-Control-Allow-Credentials", "true");
 
     fetch(`/api/users/${userId}`, {
       method: "put",
-      // headers: headers,
       headers: {
         "Content-Type": "application/json",
       },
@@ -64,8 +55,6 @@ const BecomeExpert = () => {
 
   const checkFormValid = () => {
     return true;
-    // todo - add better form validation
-    // return form.password === form.confirmPassword;
   };
   return (
     <>
@@ -168,7 +157,7 @@ const BecomeExpert = () => {
                   rows={5}
                   name="bio"
                   onChange={(e) => onChange(e)}
-                  placeholder="Write a brief description of your qualifications and what kind of work you're looking for."
+                  placeholder="Write a brief description of your professional qualifications and experience."
                 />
               </div>
             </div>
