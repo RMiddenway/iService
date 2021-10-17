@@ -24,7 +24,7 @@ const NavBar = () => {
   };
 
   const handleSignOut = () => {
-    fetch("http://localhost:5100/api/signout", {
+    fetch("/api/signout", {
       method: "get",
     })
       .then((response) => {

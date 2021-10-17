@@ -15,7 +15,7 @@ const ExpertArea = () => {
     console.log("====================================");
     console.log(queryParams);
     console.log("====================================");
-    fetch(`http://localhost:5100/api/task?${queryParams}`, {
+    fetch(`/api/task?${queryParams}`, {
       method: "get",
       // body: JSON.stringify({ userId: userId }),
     })
@@ -32,12 +32,9 @@ const ExpertArea = () => {
 
   const handleClick = async (taskId) => {
     const task = tasks.filter((t) => t._id === taskId)[0];
-    await fetch(
-      `http://localhost:5100/api/getimage?imageId=${task?.taskImageId}`,
-      {
-        method: "get",
-      }
-    )
+    await fetch(`/api/getimage?imageId=${task?.taskImageId}`, {
+      method: "get",
+    })
       .then((response) => {
         return response.json();
       })
@@ -60,7 +57,7 @@ const ExpertArea = () => {
     console.log("====================================");
     console.log("SUBMITTING");
     console.log("====================================");
-    fetch("http://localhost:5100/api/completetask", {
+    fetch("/api/completetask", {
       method: "put",
       headers: {
         "Content-Type": "application/json",

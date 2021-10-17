@@ -12,8 +12,8 @@ mongoose.connect(remoteDB, {
 });
 
 // todo - change when switching between local and heroku
-// const DOMAIN = "https://iservice62d.herokuapp.com";
-const DOMAIN = "http://localhost:5100";
+const DOMAIN = "https://iservice313.herokuapp.com";
+// const DOMAIN = "http://localhost:5100";
 passport.serializeUser(function (user, done) {
   console.log("serialize", user);
   done(null, user);

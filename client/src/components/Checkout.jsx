@@ -5,7 +5,7 @@ const Checkout = ({ cost, title }) => {
     const body = { token, cost: cost, title: title };
     const headers = { "Content-Type": "application/json" };
 
-    return fetch("http://localhost/5100/api/payment", {
+    return fetch("/api/payment", {
       method: "post",
       headers,
       body: JSON.stringify(body),

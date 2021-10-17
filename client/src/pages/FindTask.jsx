@@ -23,7 +23,7 @@ const FindTask = () => {
   };
 
   const getTasks = (queryParams) => {
-    fetch(`http://localhost:5100/api/task?${queryParams}&${userId}`, {
+    fetch(`/api/task?${queryParams}&${userId}`, {
       method: "get",
       // body: JSON.stringify({ userId: userId }),
     })
@@ -41,7 +41,7 @@ const FindTask = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleHideTask = (taskId) => {
-    fetch("http://localhost:5100/api/hidetask", {
+    fetch("/api/hidetask", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -61,12 +61,9 @@ const FindTask = () => {
 
   const handleClick = async (taskId) => {
     const task = tasks.filter((t) => t._id === taskId)[0];
-    await fetch(
-      `http://localhost:5100/api/getimage?imageId=${task?.taskImageId}`,
-      {
-        method: "get",
-      }
-    )
+    await fetch(`/api/getimage?imageId=${task?.taskImageId}`, {
+      method: "get",
+    })
       .then((response) => {
         return response.json();
       })
@@ -80,7 +77,7 @@ const FindTask = () => {
   };
 
   const handleAcceptTask = (e) => {
-    fetch("http://localhost:5100/api/accepttask", {
+    fetch("/api/accepttask", {
       method: "put",
       headers: {
         "Content-Type": "application/json",

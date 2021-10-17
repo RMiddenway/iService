@@ -40,7 +40,7 @@ const BecomeExpert = () => {
     // headers.append("Access-Control-Allow-Origin", "http://localhost:3000");
     // headers.append("Access-Control-Allow-Credentials", "true");
 
-    fetch(`http://localhost:5100/api/users/${userId}`, {
+    fetch(`/api/users/${userId}`, {
       method: "put",
       // headers: headers,
       headers: {

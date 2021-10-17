@@ -22,7 +22,7 @@ const ImageUpload = (props) => {
     const image = e.target.files[0];
     const imageBase64 = await convertToBase64(image);
     setImagePost(imageBase64);
-    fetch("http://localhost:5100/api/upload", {
+    fetch("/api/upload", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

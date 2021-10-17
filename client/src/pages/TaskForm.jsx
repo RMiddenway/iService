@@ -85,7 +85,7 @@ const TaskForm = () => {
     setForm({ ...form, ...input });
   };
   const submitForm = (e) => {
-    fetch("http://localhost:5100/api/task", {
+    fetch("/api/task", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
