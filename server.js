@@ -52,7 +52,7 @@ const localDB = "mongodb://localhost:27017/iServiceDB";
 const remoteDB =
   "mongodb+srv://admin-roger:password2020@cluster0.knut4.mongodb.net/uninewsletterDB?retryWrites=true&w=majority";
 // const YOUR_DOMAIN = "http://localhost:5100"; // todo - change when switching between local and heroku
-const YOUR_DOMAIN = "https://iservice62d.herokuapp.com";
+const YOUR_DOMAIN = "https://iservice313.herokuapp.com/";
 // todo - access logged in expert id from context
 // const EXPERT_ID = "613a0e800cb73968bd650054";
 
