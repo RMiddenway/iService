@@ -43,13 +43,15 @@ const NavBar = () => {
 
   let match = useRouteMatch();
   return (
-    <Menu>
+    <Menu className="color-danger">
       <Menu.Item
         as={Link}
         to={match.url}
+        id="home"
         header
         onClick={(e) => handleItemClick(e)}
       >
+        <Icon name="cog" color={activeItem === "home" ? "teal" : ""} />
         IService
       </Menu.Item>
       <Menu.Item
@@ -59,7 +61,10 @@ const NavBar = () => {
         active={activeItem === "postATask"}
         onClick={(e) => handleItemClick(e)}
       >
-        <Icon name="add square" />
+        <Icon
+          name="add square"
+          color={activeItem === "postATask" ? "teal" : ""}
+        />
         Post a task
       </Menu.Item>
       {userType !== "expert" ? (
@@ -70,7 +75,10 @@ const NavBar = () => {
           active={activeItem === "becomeAnExpert"}
           onClick={(e) => handleItemClick(e)}
         >
-          <Icon name="user" />
+          <Icon
+            name="user"
+            color={activeItem === "becomeAnExpert" ? "teal" : ""}
+          />
           Become an expert
         </Menu.Item>
       ) : (
@@ -84,7 +92,7 @@ const NavBar = () => {
           active={activeItem === "expertArea"}
           onClick={(e) => handleItemClick(e)}
         >
-          <Icon name="user" />
+          <Icon name="user" color={activeItem === "expertArea" ? "teal" : ""} />
           Expert Area
         </Menu.Item>
       ) : (
@@ -100,7 +108,10 @@ const NavBar = () => {
           active={activeItem === "findTasks"}
           onClick={(e) => handleItemClick(e)}
         >
-          <Icon name="search" />
+          <Icon
+            name="search"
+            color={activeItem === "findTasks" ? "teal" : ""}
+          />
           Find tasks
         </Menu.Item>
       ) : (
@@ -112,7 +123,7 @@ const NavBar = () => {
           active={activeItem === "myTasks"}
           onClick={(e) => handleItemClick(e)}
         >
-          <Icon name="search" />
+          <Icon name="search" color={activeItem === "myTasks" ? "teal" : ""} />
           My tasks
         </Menu.Item>
       )}
@@ -121,7 +132,10 @@ const NavBar = () => {
         active={activeItem === "howItWorks"}
         onClick={(e) => handleItemClick(e)}
       >
-        <Icon name="question circle" />
+        <Icon
+          name="question circle"
+          color={activeItem === "howItWorks" ? "teal" : ""}
+        />
         How it works
       </Menu.Item>
       {isSignedIn ? (

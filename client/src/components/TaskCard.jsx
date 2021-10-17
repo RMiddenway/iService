@@ -20,7 +20,7 @@ const TaskCard = ({
       </Card.Content>
       <Card.Content extra>
         <div className="d-flex justify-content-between">
-          <div>{suburb}</div>
+          <div>{suburb || "Online"}</div>
           <div>{date}</div>
         </div>
       </Card.Content>

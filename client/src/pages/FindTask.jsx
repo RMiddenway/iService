@@ -21,6 +21,10 @@ const FindTask = () => {
   const applyFilters = () => {
     getTasks(new URLSearchParams(filters).toString());
   };
+  const clearFilters = () => {
+    setFilters({ status: "open" });
+    getTasks();
+  };
 
   const getTasks = (queryParams) => {
     fetch(`/api/task?${queryParams}&${userId}`, {
@@ -112,6 +116,9 @@ const FindTask = () => {
         ></Input>
         <Button type="button" onClick={applyFilters}>
           Filter
+        </Button>
+        <Button type="button" onClick={clearFilters}>
+          Clear
         </Button>
       </Form>
       <div className="container m-2">

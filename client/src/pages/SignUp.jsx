@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 
+import { Button } from "semantic-ui-react";
+
 const SignUp = () => {
   const { addToast } = useToasts();
   const history = useHistory();
@@ -210,8 +212,9 @@ const SignUp = () => {
               id="error-text"
             ></p>
             <div className="d-flex justify-content-center">
-              <button
+              <Button
                 disabled={!checkFormValid()}
+                color="teal"
                 type="submit"
                 className="
                 btn btn-primary
@@ -223,7 +226,7 @@ const SignUp = () => {
               "
               >
                 Create Account
-              </button>
+              </Button>
             </div>
             <p onClick={(e) => history.push("/signin")}>
               Already have an account? Sign in!

@@ -32,7 +32,9 @@ const HomePage = () => {
   return (
     <>
       <HeaderImage className="m-5 p-5"></HeaderImage>
-      <Header as="h1">Featured Experts</Header>
+      <Header as="h1" className="mx-4">
+        Featured Experts
+      </Header>
       <CardContainer cardType="expert" cards={experts}></CardContainer>
       <Grid className="bg-light">
         <Grid.Column width="10" verticalAlign="middle">

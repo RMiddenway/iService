@@ -224,6 +224,9 @@ app.get("/api/task", (req, res) => {
   if (req.query.expertId) {
     findParams = { ...findParams, expertId: req.query.expertId };
   }
+  if (req.query.status) {
+    findParams = { ...findParams, status: req.query.status };
+  }
   // take task if user id is not in hiddenTasks
   findParams = { ...findParams, hiddenBy: { $ne: userId } };
   console.log("[find params]", findParams);

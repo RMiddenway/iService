@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
+import { Button, Icon } from "semantic-ui-react";
 
 import { setSignedIn, setUserType } from "../auth/authSlice";
 
@@ -51,7 +52,10 @@ const SignIn = () => {
         <div className="form col-6">
           <div className="card">
             <article className="card-body">
-              <h2 className="text-center text-teal">iService</h2>
+              <h2 className="text-center text-teal">
+                <Icon name="cog" color="teal" />
+                iService
+              </h2>
               <h5 className="card-title text-center mb-4 mt-1">Sign in</h5>
               <hr />
               <form id="form" onSubmit={(e) => onSubmit(e)}>
@@ -108,8 +112,9 @@ const SignIn = () => {
                 </div> */}
                 <div className="form-group row">
                   <div className="d-flex justify-content-center">
-                    <button
+                    <Button
                       type="submit"
+                      color="teal"
                       className="
                       btn btn-primary
                       mb-3
@@ -120,7 +125,7 @@ const SignIn = () => {
                     "
                     >
                       Sign In
-                    </button>
+                    </Button>
                   </div>
                 </div>
                 {/* <!-- form-group// --> */}
