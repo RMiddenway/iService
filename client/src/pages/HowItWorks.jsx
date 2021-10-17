@@ -21,7 +21,7 @@ const HowItWorks = () => {
             </div>
             <div className="col-6">
               <Image
-                src="https://i.pravatar.cc/200?sig=123"
+                src="https://picsum.photos/300/300?random=1"
                 className=""
                 ui={false}
               />
@@ -30,7 +30,7 @@ const HowItWorks = () => {
           <div className="row m-2 my-5">
             <div className="col-6">
               <Image
-                src="https://i.pravatar.cc/200?sig=123"
+                src="https://picsum.photos/300/300?random=2"
                 className=""
                 ui={false}
               />

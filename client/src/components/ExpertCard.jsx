@@ -18,7 +18,7 @@ const ExpertCard = ({ firstName, lastName, description, rating, imgURL }) => {
             src={
               imgURL
                 ? imgURL
-                : `https://picsum.photos/200/300?random=${firstName}`
+                : `https://picsum.photos/200/200?random=${firstName}`
             }
             ui={false}
           />
