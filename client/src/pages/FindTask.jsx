@@ -22,10 +22,13 @@ const FindTask = () => {
   };
   const clearFilters = () => {
     setFilters({ status: "open" });
-    getTasks();
+    applyFilters();
   };
 
   const getTasks = (queryParams) => {
+    console.log("====================================");
+    console.log(userId);
+    console.log("====================================");
     fetch(`/api/task?${queryParams}&${userId}`, {
       method: "get",
       // body: JSON.stringify({ userId: userId }),
@@ -53,7 +56,7 @@ const FindTask = () => {
     })
       .then((response) => {
         if (response.status === 200) {
-          getTasks();
+          applyFilters();
           setModalOpen(false);
         }
       })
