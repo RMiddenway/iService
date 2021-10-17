@@ -124,10 +124,13 @@ const SignIn = () => {
                   </div>
                 </div>
                 {/* <!-- form-group// --> */}
-                <p className="text-center">
-                  <a href="/signup" className="btn">
-                    Don't have an account? Sign up!
-                  </a>
+                <p
+                  className="text-center"
+                  onClick={(e) => {
+                    history.push("/signup");
+                  }}
+                >
+                  Don't have an account? Sign up!
                 </p>
               </form>
             </article>
