@@ -535,6 +535,10 @@ app.get("/cancel", (req, res) => {
   res.sendFile(__dirname + "/payment-cancel.html");
 });
 
+app.get("*", function (request, response) {
+  response.sendFile(path.resolve(__dirname, "../react-ui/build", "index.html"));
+});
+
 let PORT = process.env.PORT;
 if (PORT == null || PORT == "") {
   port = 5100;
