@@ -122,6 +122,8 @@ const NavBar = () => {
       )}
       <Menu.Item
         id="howItWorks"
+        as={Link}
+        to={`${match.url}howitworks`}
         active={activeItem === "howItWorks"}
         onClick={(e) => handleItemClick(e)}
       >

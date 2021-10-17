@@ -1,21 +1,22 @@
-import "./App.css";
+import './App.css';
 
-import { Provider } from "react-redux";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import { ToastProvider } from "react-toast-notifications";
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { ToastProvider } from 'react-toast-notifications';
 
-import PrivateRoute from "./auth/PrivateRoute";
-import NavBar from "./components/NavBar";
-import TaskMap from "./components/TaskMap";
-import BecomeExpert from "./pages/BecomeExpert";
-import ExpertArea from "./pages/ExpertArea";
-import FindTask from "./pages/FindTask";
-import Home from "./pages/Home";
-import MyTasks from "./pages/MyTasks";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import TaskForm from "./pages/TaskForm";
-import store from "./store";
+import PrivateRoute from './auth/PrivateRoute';
+import NavBar from './components/NavBar';
+import TaskMap from './components/TaskMap';
+import BecomeExpert from './pages/BecomeExpert';
+import ExpertArea from './pages/ExpertArea';
+import FindTask from './pages/FindTask';
+import Home from './pages/Home';
+import HowItWorks from './pages/HowItWorks';
+import MyTasks from './pages/MyTasks';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import TaskForm from './pages/TaskForm';
+import store from './store';
 
 function App() {
   // const isSignedIn = () => localStorage.getItem("IS_SIGNED_IN") === "true";
@@ -36,6 +37,7 @@ function App() {
               <Route exact path="/taskmap" component={TaskMap} />
               <Route path="/findtask" component={FindTask} />
               <PrivateRoute path="/becomeexpert" component={BecomeExpert} />
+              <Route path="/howitworks" component={HowItWorks} />
             </Switch>
           </Router>
         </ToastProvider>
