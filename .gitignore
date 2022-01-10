@@ -1,1 +1,5 @@
 node_modules
+
+google_creds.json
+mailChimp.js
+passport-setup.js
